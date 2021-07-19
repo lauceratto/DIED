@@ -34,6 +34,10 @@ public class EstacionMultimodal implements Serializable {
 	@Column(name = "estado")
 	private Boolean estado;
 	
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "id_trayecto")
+//	private Trayecto tr;
+//	
 //	@ManyToOne(cascade = CascadeType.MERGE)
 //	@JoinColumn(name = "id_rutaOrigen")
 //	private Ruta id_rutaOrigen;

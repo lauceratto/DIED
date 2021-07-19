@@ -14,6 +14,7 @@ import javax.swing.WindowConstants;
 
 
 import tp.dao.conexionDAO;
+import tp.paneles.PanelTransporte;
 
 public class App extends JFrame{
 	
@@ -21,7 +22,7 @@ public class App extends JFrame{
 	JMenu menuArchivo;
 	JMenuItem menuItemSalir;
 	JPanel panel = new JPanel();
-	
+	JButton botonTransporte;
 	
 public App() {
 	
@@ -37,6 +38,20 @@ private void armarApp() {
 	menuBar.add(this.menuArchivo);
 	this.setJMenuBar(menuBar);
 	
+	this.botonTransporte = new JButton("Transportes");
+
+	this.botonTransporte.addActionListener(e -> {
+		this.setContentPane(new PanelTransporte(this));
+		this.pack();
+		this.revalidate();
+		this.repaint();
+		this.setSize(1020, 720);
+		this.setLocationRelativeTo(null);
+		this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+	});
+	this.panel.add(this.botonTransporte);
+	
+	this.add(this.panel);
 }
 
 	

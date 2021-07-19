@@ -9,12 +9,13 @@
   	<class>tp.dominio.Ruta</class>
  	<class>tp.dominio.Boleto</class>
  	<class>tp.dominio.Transporte</class>
+  	<class>tp.dominio.Trayecto</class>
   
     <properties>
         <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-        <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres?searchpath=" /><!--AL LADO DEL IGUAL PONER LA BD QUE CREARON -->
+        <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/postgres?searchpath=DIED" />
         <property name="javax.persistence.jdbc.user" value="postgres" />
-        <property name="javax.persistence.jdbc.password" value="" />
+        <property name="javax.persistence.jdbc.password" value="023843" />
         <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
         <property name="hibernate.hbm2ddl.auto" value="update" />
     </properties>

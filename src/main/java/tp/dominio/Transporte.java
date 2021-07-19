@@ -10,8 +10,19 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Transporte")
 public class Transporte implements Serializable {
-
 	private static final long serialVersionUID = 1L;
+//	public Transporte(String id, String nombre, String color, Boolean estado) {
+//		this.id = id;
+//		this.nombre = nombre;
+//		this.color = color;
+//		this.estado = estado;
+//	}
+	public Transporte( String nombre, String color, Boolean estado) {
+		this.nombre = nombre;
+		this.color = color;
+		this.estado = estado;
+	}
+	
 	
 	@Id @GeneratedValue
 	@Column(name = "id")
