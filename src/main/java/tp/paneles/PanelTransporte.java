@@ -9,7 +9,10 @@ import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.RowSorter;
 import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -26,6 +29,7 @@ import java.util.List;
 import javax.swing.JRadioButton;
 
 import tp.App.App;
+import tp.App.Login;
 import tp.dominio.Transporte;
 import tp.gestores.GestorTransporte;
 
@@ -36,7 +40,7 @@ public class PanelTransporte extends JPanel {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextField textNombre;
 	private JTextField textColor;
-	private JTable table;
+	public JTable table;
 	private TransporteTableModel modeloTabla;
 	private GestorTransporte gestorT = new GestorTransporte(); 
 	private TableRowSorter trs, trs1, trs2;
@@ -70,7 +74,25 @@ public class PanelTransporte extends JPanel {
 		btnBaja.setFont(new Font("Calibri", Font.BOLD, 14));
 		btnBaja.setBounds(630, 587, 104, 20);
 		btnBaja.addActionListener(e -> {
-			JOptionPane.showMessageDialog( null, "Lo sentimos. Esta opción no disponible en este momento", "Advertencia", 0);
+			if(table.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(null, "Ninguna fila seleccionada");
+			}else {
+				int n = JOptionPane.showConfirmDialog( null, "Desea eliminar el transporte seleccionado?", "Mensaje", JOptionPane.YES_NO_OPTION);
+				if (n == JOptionPane.YES_OPTION) {
+					this.setVisible(false);
+					String nombre = String.valueOf(modeloTabla.getValueAt(table.getSelectedRow(), 0));
+					Integer id = gestorT.obtenerIdPorNombre(nombre);
+					gestorT.eliminarTransporte(id);
+					app.setContentPane(new PanelTransporte(app));
+					app.pack();
+					app.revalidate();
+					app.repaint();
+					app.setSize(1020, 720);
+					app.setLocationRelativeTo(null);
+					app.setExtendedState(app.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+					
+					}
+			}
 		});
 		add(btnBaja);
 		
@@ -148,6 +170,7 @@ public class PanelTransporte extends JPanel {
 		scrollPane.setLocation(468, 264);
 		this.add(scrollPane);
 		
+		
 		JLabel lblNewLabel_1 = new JLabel("Resultados");
 		lblNewLabel_1.setBounds(468, 239, 127, 14);
 		add(lblNewLabel_1);
@@ -200,9 +223,19 @@ public class PanelTransporte extends JPanel {
 		add(btnBuscar);
 
 		
-		JButton btnNewButton = new JButton("Cancelar");
-		btnNewButton.setBounds(1064, 668, 89, 23);
-		add(btnNewButton);
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(1066, 644, 89, 23);
+		btnCancelar.addActionListener(e -> {
+			this.setVisible(false);
+			app.setContentPane(new PanelInicio(app));
+			app.pack();
+			app.revalidate();
+			app.repaint();
+			app.setSize(1020, 720);
+			app.setLocationRelativeTo(null);
+			app.setExtendedState(app.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		});
+		add(btnCancelar);
 		
 		JButton btnTrayecto = new JButton("Trayecto");
 		btnTrayecto.setFont(new Font("Calibri", Font.BOLD, 14));
@@ -211,7 +244,9 @@ public class PanelTransporte extends JPanel {
 			if(table.getSelectedRow() == -1) {
 				JOptionPane.showMessageDialog(null, "Ninguna fila seleccionada");
 			}else {
-			
+				PanelTrayecto paneltrayecto = new PanelTrayecto();
+				paneltrayecto.setVisible(true);			
+
 			}
 		});
 		add(btnTrayecto);
@@ -220,5 +255,6 @@ public class PanelTransporte extends JPanel {
 		TableRowSorter tr = new TableRowSorter(jtableBuscar);
 		table.setRowSorter(tr);
 		tr.setRowFilter(RowFilter.regexFilter(consulta, NColumna));
-}
+	}
+	
 }

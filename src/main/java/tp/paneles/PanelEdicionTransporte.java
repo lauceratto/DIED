@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import tp.App.App;
+import tp.App.Login;
 import tp.Exceptions.TransporteException;
 import tp.dominio.Transporte;
 import tp.gestores.GestorTransporte;
@@ -63,6 +64,11 @@ public class PanelEdicionTransporte extends JPanel {
 		rdbtnNewRadioButton_1.setBounds(775, 261, 109, 23);
 		buttonGroup.add(rdbtnNewRadioButton_1);
 		add(rdbtnNewRadioButton_1);
+		if(transporte.getEstado()==true) {
+			rdbtnNewRadioButton.setSelected(true);
+		}else {
+			rdbtnNewRadioButton_1.setSelected(true);
+		}
 		
 		JButton btnNewButton = new JButton("Guardar");
 		btnNewButton.setBounds(601, 340, 89, 23);
@@ -75,11 +81,20 @@ public class PanelEdicionTransporte extends JPanel {
 				estado = true;
 			}
 			try {
-				gestorT.actulizarTransporte(nombre, color,estado);
+				Integer id = gestorT.obtenerIdPorNombre(transporte.getNombre());
+				gestorT.actulizarTransporte(id, nombre, color,estado);
 			}catch(TransporteException t) {
 				t.printStackTrace();
 			};
 			
+			this.setVisible(false);
+			app.setContentPane(new PanelTransporte(app));
+			app.pack();
+			app.revalidate();
+			app.repaint();
+			app.setSize(1020, 720);
+			app.setLocationRelativeTo(null);
+			app.setExtendedState(app.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 			
 		});
 		add(btnNewButton);

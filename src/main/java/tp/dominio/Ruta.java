@@ -19,14 +19,12 @@ public class Ruta implements Serializable{
 	@Id @GeneratedValue
 	@Column(name = "id")
 	private Integer id;
-	
-//	@OneToMany(cascade = CascadeType.MERGE)
-//	@JoinColumn(name = "origen")
-//	private EstacionMultimodal origen;
-//	
-//	@OneToMany(cascade = CascadeType.MERGE)
-//	@JoinColumn(name = "destino")
-//	private EstacionMultimodal destino;
+
+	@Column(name = "origen")
+	private EstacionMultimodal origen;
+
+	@Column(name = "destino")
+	private EstacionMultimodal destino;
 	
 	@Column(name = "distancia")
 	private String distancia;
@@ -55,21 +53,21 @@ public class Ruta implements Serializable{
 		this.id = id;
 	}
 
-//	public EstacionMultimodal getOrigen() {
-//		return origen;
-//	}
-//
-//	public void setOrigen(EstacionMultimodal origen) {
-//		this.origen = origen;
-//	}
-//
-//	public EstacionMultimodal getDestino() {
-//		return destino;
-//	}
-//
-//	public void setDestino(EstacionMultimodal destino) {
-//		this.destino = destino;
-//	}
+	public EstacionMultimodal getOrigen() {
+		return origen;
+	}
+
+	public void setOrigen(EstacionMultimodal origen) {
+		this.origen = origen;
+	}
+
+	public EstacionMultimodal getDestino() {
+		return destino;
+	}
+
+	public void setDestino(EstacionMultimodal destino) {
+		this.destino = destino;
+	}
 
 	public String getDistancia() {
 		return distancia;

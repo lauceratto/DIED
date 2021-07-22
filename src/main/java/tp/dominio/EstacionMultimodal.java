@@ -18,9 +18,9 @@ import javax.persistence.Table;
 public class EstacionMultimodal implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue
+	@Id 
 	@Column(name = "id")
-	private Integer id;
+	private String id;
 	
 	@Column(name = "nombre")
 	private String nombre;
@@ -49,15 +49,24 @@ public class EstacionMultimodal implements Serializable {
 //	@ManyToOne(cascade = CascadeType.MERGE)
 //	@JoinColumn(name = "nroBoleto")
 //	private Boleto nroBoleto;
+	
 	public EstacionMultimodal() {
 	
 	}
 
-	public Integer getId() {
+	public EstacionMultimodal(String id, String nombre, String apertura, String cierre, boolean estado) {
+		this.id=id;
+		this.nombre = nombre;
+		this.horarioApertura = apertura;
+		this.horarioCierre = cierre;
+		this.estado = estado;
+	}
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

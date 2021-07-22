@@ -1,5 +1,6 @@
 package tp.App;
 
+import java.awt.Font;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,6 +15,8 @@ import javax.swing.WindowConstants;
 
 
 import tp.dao.conexionDAO;
+import tp.paneles.PanelEstacionMultimodal;
+import tp.paneles.PanelInicio;
 import tp.paneles.PanelTransporte;
 
 public class App extends JFrame{
@@ -22,13 +25,14 @@ public class App extends JFrame{
 	JMenu menuArchivo;
 	JMenuItem menuItemSalir;
 	JPanel panel = new JPanel();
-	JButton botonTransporte;
+	JButton botonInicio;
+	JButton botonEstacion;
 	
 public App() {
 	
 }
 
-private void armarApp() {
+public void armarApp() {
 	
 	this.menuBar = new JMenuBar();
 	this.menuArchivo = new JMenu("Inicio");
@@ -38,10 +42,10 @@ private void armarApp() {
 	menuBar.add(this.menuArchivo);
 	this.setJMenuBar(menuBar);
 	
-	this.botonTransporte = new JButton("Transportes");
-
-	this.botonTransporte.addActionListener(e -> {
-		this.setContentPane(new PanelTransporte(this));
+	this.botonInicio = new JButton("Inicio");
+	
+	this.botonInicio.addActionListener(e -> {
+		this.setContentPane(new PanelInicio(this));
 		this.pack();
 		this.revalidate();
 		this.repaint();
@@ -49,26 +53,15 @@ private void armarApp() {
 		this.setLocationRelativeTo(null);
 		this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 	});
-	this.panel.add(this.botonTransporte);
-	
+	this.panel.add(this.botonInicio);
+
 	this.add(this.panel);
 }
 
 	
 	public static void main(String[] args) {
-		
-		EntityManagerFactory emf = conexionDAO.getInstance();
-		EntityManager man = emf.createEntityManager(); 
-		man.getTransaction().begin();
-		 App app = new App();
-		 app.setTitle("Sistema de Gestión Transporte Multimodal");
-		 app.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		 app.armarApp();
-		 app.setLocationRelativeTo(null);
-		 app.setExtendedState(app.getExtendedState() | JFrame.MAXIMIZED_BOTH);
-		 app.setVisible(true);
-		man.getTransaction().commit();
-	    man.close();
-	   
+	 Login log = new Login();
+	 log.armarLogin();
+	 log.setVisible(true);
 	}
 }
