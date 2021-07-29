@@ -22,20 +22,36 @@ public class Trayecto implements Serializable{
 	@Column(name = "id")
 	private Integer id;
 	
-//	@OneToMany(mappedBy = "est", cascade = CascadeType.ALL)
-//	List<EstacionMultimodal> estaciones = new ArrayList<EstacionMultimodal>();
+	@Column(name = "estacion")
+	private String estaciones;
+	
+	@Column(name = "transporte")
+	private String transporte;
 	
 	public Trayecto() {
 		
 	}
 
-//	public List<EstacionMultimodal> getEstaciones() {
-//		return estaciones;
-//	}
-//
-//	public void setEstaciones(List<EstacionMultimodal> estaciones) {
-//		this.estaciones = estaciones;
-//	}
+	public Trayecto(String nombreEstacion, String nombreTransporte) {
+		this.estaciones = nombreEstacion;
+		this.transporte = nombreTransporte;
+	}
+
+	public String getTransporte() {
+		return transporte;
+	}
+
+	public void setTransporte(String transporte) {
+		this.transporte = transporte;
+	}
+
+	public String getEstaciones() {
+		return estaciones;
+	}
+
+	public void setEstaciones(String estaciones) {
+		this.estaciones = estaciones;
+	}
 
 	public Integer getId() {
 		return id;

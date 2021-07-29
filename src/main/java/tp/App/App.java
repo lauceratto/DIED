@@ -60,6 +60,7 @@ public void armarApp() {
 
 	
 	public static void main(String[] args) {
+	
 	 Login log = new Login();
 	 log.armarLogin();
 	 log.setVisible(true);

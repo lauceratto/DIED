@@ -1,5 +1,6 @@
 package tp.gestores;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,10 +10,12 @@ import tp.Exceptions.EstacionException;
 import tp.Exceptions.TransporteException;
 import tp.dao.EstacionDAO;
 import tp.dominio.EstacionMultimodal;
+import tp.dominio.HistorialDeMantenimiento;
 import tp.dominio.Transporte;
 
 public class GestorEstacion {
 	private EstacionDAO dao = new EstacionDAO();
+	private String obtenerid = null;
 	public GestorEstacion() {
 		
 	}
@@ -59,4 +62,25 @@ public class GestorEstacion {
 	public void eliminarEstacion(String id) {
 		dao.eliminar(id);
 	}
+	
+	public void guardarEnHistorial(LocalDate inicio, LocalDate fin, String obs, String id) {
+		HistorialDeMantenimiento historial = new HistorialDeMantenimiento(inicio,fin,obs,id);
+		//Deberia validar que los estado sean distintos antes de guardar.
+		dao.guardarHistorial(historial);
+		JOptionPane.showMessageDialog(null, "La estacion se actualizo con exito");
+	}
+	public void actualizarHistorial(LocalDate inicio, LocalDate fin, String obs, String id) {
+		HistorialDeMantenimiento historial = new HistorialDeMantenimiento(inicio,fin,obs,id);
+		obtenerid = obtenerID(historial);
+		dao.actualizarHistorial(obtenerid,fin);
+		JOptionPane.showMessageDialog(null, "La estacion se actualizo con exito");
+	}
+	public String obtenerID(HistorialDeMantenimiento historial) {
+		return dao.getById(historial);
+	}
+	public void actualizarEstacion(EstacionMultimodal estac) {
+		dao.actualizarEstacion(estac);
+		
+	}
+
 }

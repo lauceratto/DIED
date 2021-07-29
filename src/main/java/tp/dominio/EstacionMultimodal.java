@@ -1,6 +1,7 @@
 package tp.dominio;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -34,6 +36,9 @@ public class EstacionMultimodal implements Serializable {
 	@Column(name = "estado")
 	private Boolean estado;
 	
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estacionMultimodal")
+//	private List<HistorialDeMantenimiento> mantenimientos;
+	
 //	@ManyToOne(fetch = FetchType.LAZY)
 //	@JoinColumn(name = "id_trayecto")
 //	private Trayecto tr;
@@ -54,7 +59,7 @@ public class EstacionMultimodal implements Serializable {
 	
 	}
 
-	public EstacionMultimodal(String id, String nombre, String apertura, String cierre, boolean estado) {
+	public EstacionMultimodal(String id, String nombre, String apertura, String cierre, Boolean estado) {
 		this.id=id;
 		this.nombre = nombre;
 		this.horarioApertura = apertura;
@@ -62,6 +67,7 @@ public class EstacionMultimodal implements Serializable {
 		this.estado = estado;
 	}
 
+	
 	public String getId() {
 		return id;
 	}

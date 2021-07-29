@@ -15,6 +15,8 @@ import javax.swing.border.EmptyBorder;
 
 import tp.App.App;
 import tp.App.Login;
+import tp.dominio.EstacionMultimodal;
+import tp.dominio.Transporte;
 import tp.gestores.GestorEstacion;
 
 import javax.swing.JRadioButton;
@@ -37,7 +39,7 @@ public class PanelEstacionMultimodal extends JPanel {
 	 */
 	public PanelEstacionMultimodal(App app) {
 		setLayout(null);
-		
+	
 		JLabel lblNewLabel = new JLabel("Listar Estaciones Multimodal");
 		lblNewLabel.setBounds(616, 11, 300, 30);
 		lblNewLabel.setFont(new Font("Calibri", Font.BOLD, 24));
@@ -73,10 +75,10 @@ public class PanelEstacionMultimodal extends JPanel {
 		lblNewLabel_1.setBounds(646, 146, 31, 14);
 		add(lblNewLabel_1);
 		
-		JLabel lblHorarioApertura_1 = new JLabel("Horario apertura");
-		lblHorarioApertura_1.setBackground(Color.BLACK);
-		lblHorarioApertura_1.setBounds(698, 143, 102, 20);
-		add(lblHorarioApertura_1);
+		JLabel lblHorarioCierre = new JLabel("Horario cierre");
+		lblHorarioCierre.setBackground(Color.BLACK);
+		lblHorarioCierre.setBounds(698, 143, 102, 20);
+		add(lblHorarioCierre);
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
@@ -130,6 +132,7 @@ public class PanelEstacionMultimodal extends JPanel {
 		add(lblId);
 		
 		JButton btnAlta = new JButton("Alta");
+		btnAlta.setFont(new Font("Calibri", Font.BOLD, 15));
 		btnAlta.setBounds(509, 532, 89, 23);
 		btnAlta.addActionListener(e -> {
 			this.setVisible(false);
@@ -143,7 +146,21 @@ public class PanelEstacionMultimodal extends JPanel {
 		});
 		add(btnAlta);
 		
+//		JButton btnTrayecto = new JButton("Destinos");
+//		btnTrayecto.setFont(new Font("Calibri", Font.BOLD, 14));
+//		btnTrayecto.setBounds(831, 532, 104, 23);
+//		btnTrayecto.addActionListener(e -> {
+//			if(table.getSelectedRow() == -1) {
+//				JOptionPane.showMessageDialog(null, "Ninguna fila seleccionada");
+//			}else {
+//				PanelTrayecto paneltrayecto = new PanelTrayecto();
+//				paneltrayecto.setVisible(true);			
+//
+//			}
+//		});
+//		add(btnTrayecto);
 		JButton btnBaja = new JButton("Baja");
+		btnBaja.setFont(new Font("Calibri", Font.BOLD, 14));
 		btnBaja.setBounds(616, 532, 89, 23);
 		btnBaja.addActionListener(e -> {
 			if(table.getSelectedRow() == -1) {
@@ -169,7 +186,35 @@ public class PanelEstacionMultimodal extends JPanel {
 		add(btnBaja);
 		
 		JButton btnEdicion = new JButton("Edicion");
+		btnEdicion.setFont(new Font("Calibri", Font.BOLD, 14));
 		btnEdicion.setBounds(722, 532, 89, 23);
+		btnEdicion.addActionListener(e -> {
+			if(table.getSelectedRow() == -1) {
+				JOptionPane.showMessageDialog(null, "Ninguna fila seleccionada");
+			}else {
+				String id = String.valueOf(modeloTabla.getValueAt(table.getSelectedRow(), 0));
+				String nombre = String.valueOf(modeloTabla.getValueAt(table.getSelectedRow(), 1));
+				String apertura = String.valueOf(modeloTabla.getValueAt(table.getSelectedRow(), 2));
+				String cierre = String.valueOf(modeloTabla.getValueAt(table.getSelectedRow(), 3));
+				String estado = String.valueOf(modeloTabla.getValueAt(table.getSelectedRow(), 4));
+				Boolean estado1;
+				if(estado=="Operativa"){
+					estado1 = true;
+				}else {
+					estado1 = false;
+				}
+				EstacionMultimodal est = new EstacionMultimodal(id,nombre,apertura,cierre, estado1);
+				this.setVisible(false);
+				app.setContentPane(new PanelEdicionEstacion(est, app));
+				app.pack();
+				app.revalidate();
+				app.repaint();
+				app.setSize(1020, 720);
+				app.setLocationRelativeTo(null);
+				app.setExtendedState(app.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+				
+			}
+			});
 		add(btnEdicion);
 		
 		JButton btnCancelar = new JButton("Cancelar");

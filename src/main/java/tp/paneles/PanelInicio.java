@@ -17,7 +17,7 @@ public class PanelInicio extends JPanel {
 		setLayout(null);
 		
 		JButton btnNewButton = new JButton("Transporte");
-		btnNewButton.setBounds(408, 84, 135, 23);
+		btnNewButton.setBounds(466, 84, 135, 23);
 		btnNewButton.addActionListener(e -> {
 			this.setVisible(false);
 			app.setContentPane(new PanelTransporte(app));
@@ -31,7 +31,7 @@ public class PanelInicio extends JPanel {
 		add(btnNewButton);
 		
 		JButton btnEstacionMultimodal = new JButton("Estacion Multimodal");
-		btnEstacionMultimodal.setBounds(688, 84, 172, 23);
+		btnEstacionMultimodal.setBounds(786, 84, 172, 23);
 		btnEstacionMultimodal.addActionListener(e -> {
 			this.setVisible(false);
 			app.setContentPane(new PanelEstacionMultimodal(app));
@@ -43,6 +43,20 @@ public class PanelInicio extends JPanel {
 			app.setExtendedState(app.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		});
 		add(btnEstacionMultimodal);
+		
+		JButton btnTrayecto = new JButton("Trayecto");
+		btnTrayecto.setBounds(629, 170, 145, 23);
+		btnTrayecto.addActionListener(e -> {
+			this.setVisible(false);
+			app.setContentPane(new PanelTrayecto(app));
+			app.pack();
+			app.revalidate();
+			app.repaint();
+			app.setSize(1020, 720);
+			app.setLocationRelativeTo(null);
+			app.setExtendedState(app.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		});
+		add(btnTrayecto);
 		
 	}
 }

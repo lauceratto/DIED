@@ -103,8 +103,8 @@ public class PanelTransporte extends JPanel {
 		if(table.getSelectedRow() == -1) {
 			JOptionPane.showMessageDialog(null, "Ninguna fila seleccionada");
 		}else {
+			
 			String nombre = String.valueOf(modeloTabla.getValueAt(table.getSelectedRow(), 0));
-		//	System.out.println(nombre);
 			String color = String.valueOf(modeloTabla.getValueAt(table.getSelectedRow(), 1));
 			String estado = String.valueOf(modeloTabla.getValueAt(table.getSelectedRow(), 2));
 			Boolean estado1;
@@ -237,24 +237,31 @@ public class PanelTransporte extends JPanel {
 		});
 		add(btnCancelar);
 		
-		JButton btnTrayecto = new JButton("Trayecto");
-		btnTrayecto.setFont(new Font("Calibri", Font.BOLD, 14));
-		btnTrayecto.setBounds(858, 587, 104, 20);
-		btnTrayecto.addActionListener(e -> {
+		JButton btnDefinirTrayecto = new JButton("Definir Trayecto");
+		btnDefinirTrayecto.setFont(new Font("Calibri", Font.BOLD, 14));
+		btnDefinirTrayecto.setBounds(858, 587, 147, 20);
+		btnDefinirTrayecto.addActionListener(e -> {
 			if(table.getSelectedRow() == -1) {
-				JOptionPane.showMessageDialog(null, "Ninguna fila seleccionada");
+				JOptionPane.showMessageDialog(null, "Ningun transporte seleccionado");
 			}else {
-				PanelTrayecto paneltrayecto = new PanelTrayecto();
-				paneltrayecto.setVisible(true);			
-
+			this.setVisible(false);
+			String nombreTransporte = table.getModel().getValueAt(table.getSelectedRow(), 0).toString(); 
+			app.setContentPane(new PanelAltaTrayecto(nombreTransporte,app));
+			app.pack();
+			app.revalidate();
+			app.repaint();
+			app.setSize(1020, 720);
+			app.setLocationRelativeTo(null);
+			app.setExtendedState(app.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 			}
 		});
-		add(btnTrayecto);
+		add(btnDefinirTrayecto);
+		
+		
 	}
 	public void filtro(String consulta, TransporteTableModel jtableBuscar, int NColumna){
 		TableRowSorter tr = new TableRowSorter(jtableBuscar);
 		table.setRowSorter(tr);
 		tr.setRowFilter(RowFilter.regexFilter(consulta, NColumna));
 	}
-	
 }

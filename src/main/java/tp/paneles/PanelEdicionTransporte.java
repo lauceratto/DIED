@@ -74,6 +74,7 @@ public class PanelEdicionTransporte extends JPanel {
 		btnNewButton.setBounds(601, 340, 89, 23);
 		btnNewButton.addActionListener(e -> {
 //			String id = lblNewLabel_4.getText();
+			//VERIFICAR EL NOMBRE
 			String nombre = this.txtNombre.getText();
 			String color = comboColor.getSelectedItem().toString();
 			Boolean estado = false;

@@ -11,6 +11,7 @@
  	<class>tp.dominio.Transporte</class>
   	<class>tp.dominio.Trayecto</class>
   	<class>tp.dominio.Usuario</class>
+  	<class>tp.dominio.HistorialMantenimiento</class>
     <properties>
         <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
         <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/postgres?searchpath=DIED" />
@@ -18,8 +19,9 @@
         <property name="javax.persistence.jdbc.password" value="023843" />
         <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
         <property name="hibernate.hbm2ddl.auto" value="update" />
+       
     </properties>
-    
+
   </persistence-unit>
 
 </persistence>

@@ -1,61 +1,78 @@
 package tp.paneles;
 
 import javax.swing.JFrame;
+
 import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.WindowConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.TableColumn;
 
 import tp.App.App;
-import tp.gestores.GestorTransporte;
+import tp.dominio.EstacionMultimodal;
+import tp.gestores.GestorEstacion;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JButton;
-import javax.swing.JScrollPane;
 
-public class PanelTrayecto extends JFrame {
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
-	private GestorTransporte gestorT = new GestorTransporte(); 
-	private TrayectoTableModel modeloTabla;
-	private JTable table;
+public class PanelTrayecto extends JPanel {
 
-	public PanelTrayecto() {
-		setTitle("TRAYECTOS");
-		getContentPane().setLayout(null);
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		setBounds(150, 150, 430, 400);
-//		JPanel contentPane = new JPanel();
-//		setBorder(new EmptyBorder(10, 10, 10, 10));
-//		setContentPane(contentPane);
+	private GestorEstacion gestorE = new GestorEstacion(); 
+	private JComboBox<String> comboBoxOrigen;
+	private JComboBox<String> comboBoxDestino;
+
+	public PanelTrayecto(App app) {
 		setLayout(null);
 		
-		modeloTabla = new TrayectoTableModel(gestorT.getTransportes());
+		comboBoxOrigen = new JComboBox<String>();
+		comboBoxOrigen.setBounds(507, 202, 131, 22);
+		List<EstacionMultimodal> estaciones = new ArrayList<EstacionMultimodal>();
+		estaciones = gestorE.getEstaciones();
+		for(EstacionMultimodal est : estaciones) {
+			this.comboBoxOrigen.addItem(est.getNombre());
+		}
+		this.comboBoxOrigen.setSelectedItem(null);
+		add(comboBoxOrigen);
 		
-		JButton btnNewButton = new JButton("Agregar");
-		btnNewButton.setBounds(299, 110, 89, 23);
-		getContentPane().add(btnNewButton);
+		JLabel lblOrigen = new JLabel("ORIGEN");
+		lblOrigen.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOrigen.setBounds(425, 206, 72, 14);
 		
-		JButton btnNewButton_1 = new JButton("Cancelar");
-		btnNewButton_1.setBounds(299, 144, 89, 23);
-		getContentPane().add(btnNewButton_1);
+		add(lblOrigen);
 		
-		table = new JTable(modeloTabla);
-		addCheckBox(1, table);
-		table.setBounds(28, 40, 217, 239);
-		getContentPane().add(table);
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setSize(250, 175);
-		scrollPane.setLocation(21, 62);
-		getContentPane().add(scrollPane);
+		JLabel lblDestino = new JLabel("DESTINO");
+		lblDestino.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDestino.setBounds(710, 206, 92, 14);
+		add(lblDestino);
 		
+		comboBoxDestino = new JComboBox<String>();
+		comboBoxDestino.setBounds(812, 202, 131, 22);
+		for(EstacionMultimodal est : estaciones) {
+			this.comboBoxDestino.addItem(est.getNombre());
+		}
+		this.comboBoxDestino.setSelectedItem(null);
+		add(comboBoxDestino);
+		
+		JButton btnVerTrayectos = new JButton("Ver Trayectos");
+		btnVerTrayectos.setBounds(541, 317, 147, 23);
+		add(btnVerTrayectos);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(734, 317, 147, 23);
+		btnCancelar.addActionListener(e -> {
+			this.setVisible(false);
+			app.setContentPane(new PanelInicio(app));
+			app.pack();
+			app.revalidate();
+			app.repaint();
+			app.setSize(1020, 720);
+			app.setLocationRelativeTo(null);
+			app.setExtendedState(app.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		});
+		add(btnCancelar);
 
-	}
-	public void addCheckBox(Integer column, JTable table) {
-		TableColumn c = table.getColumnModel().getColumn(column);
-		c.setCellEditor(table.getDefaultEditor(Boolean.class));
-		c.setCellRenderer(table.getDefaultRenderer(Boolean.class));
-	}
-	
-	public Boolean isSelected(Integer row, Integer column, JTable table) {
-		return table.getValueAt(row, column) != null;
+		
 	}
 }
