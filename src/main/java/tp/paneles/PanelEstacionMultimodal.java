@@ -145,20 +145,7 @@ public class PanelEstacionMultimodal extends JPanel {
 			app.setExtendedState(app.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		});
 		add(btnAlta);
-		
-//		JButton btnTrayecto = new JButton("Destinos");
-//		btnTrayecto.setFont(new Font("Calibri", Font.BOLD, 14));
-//		btnTrayecto.setBounds(831, 532, 104, 23);
-//		btnTrayecto.addActionListener(e -> {
-//			if(table.getSelectedRow() == -1) {
-//				JOptionPane.showMessageDialog(null, "Ninguna fila seleccionada");
-//			}else {
-//				PanelTrayecto paneltrayecto = new PanelTrayecto();
-//				paneltrayecto.setVisible(true);			
-//
-//			}
-//		});
-//		add(btnTrayecto);
+
 		JButton btnBaja = new JButton("Baja");
 		btnBaja.setFont(new Font("Calibri", Font.BOLD, 14));
 		btnBaja.setBounds(616, 532, 89, 23);

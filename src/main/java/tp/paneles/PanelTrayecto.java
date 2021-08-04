@@ -3,6 +3,7 @@ package tp.paneles;
 import javax.swing.JFrame;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import tp.App.App;
 import tp.dominio.EstacionMultimodal;
@@ -76,8 +77,13 @@ public class PanelTrayecto extends JPanel {
 		JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setVisible(false);
-		textArea.setBounds(533, 390, 337, 82);
-		add(textArea);
+		textArea.setBounds(450, 360, 337, 82);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setVisible(false);
+		scrollPane.setSize(354, 91);
+		scrollPane.setLocation(632, 411);
+		this.add(scrollPane);
+		
 		JButton btnComprarBoleto = new JButton("Comprar Boleto");
 		btnComprarBoleto.setVisible(false);
 		btnComprarBoleto.setBounds(615, 510, 168, 23);
@@ -108,6 +114,7 @@ public class PanelTrayecto extends JPanel {
 				textArea.setVisible(true);
 				btnComprarBoleto.setVisible(true);
 				lblNewLabel.setVisible(true);
+				scrollPane.setVisible(true);
 			cam = grafo.caminos(new EstacionMultimodal(comboBoxOrigen.getSelectedItem().toString()), new EstacionMultimodal(comboBoxDestino.getSelectedItem().toString()),comboBoxTransporte.getSelectedItem().toString());
 			textArea.setText(null); 
 			for (int j = 0; j < cam.size(); j++) {

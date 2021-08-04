@@ -194,8 +194,4 @@ public class PanelCrearBoleto extends JPanel {
 
 	}
 	
-//	public double calcularCosto() {
-//		System.out.println();
-//		return 0.0;
-//	}
 }

@@ -19,10 +19,10 @@ public class TrayectoDAO {
 		man.getTransaction().commit();
 		man.close();
 	}
-	public List<Trayecto> getTrayecto(String nombreTransporte) {
+	public List<Trayecto> getTrayecto() {
 		EntityManagerFactory emf = conexionDAO.getInstance();
 		EntityManager man = emf.createEntityManager();
-		List<Trayecto> trayectos = (List<Trayecto>) man.createQuery("FROM Trayecto WHERE transporte = '"+nombreTransporte+"'").getResultList();
+		List<Trayecto> trayectos = (List<Trayecto>) man.createQuery("FROM Trayecto").getResultList();
 		man.close();
 		return trayectos;
 	}

@@ -19,9 +19,9 @@ public class GestorTrayecto {
 		
 	}
 	
-	public List<Trayecto> obtenerTrayectos(String nombreTransporte){
+	public List<Trayecto> obtenerTrayectos(){
 		List<Trayecto> t =  new ArrayList<Trayecto>();
-		for(Trayecto trayectos: this.dao.getTrayecto(nombreTransporte)) {
+		for(Trayecto trayectos: this.dao.getTrayecto()) {
 			Trayecto tdto = new Trayecto();
 			tdto.setEstacionOrigen(trayectos.getEstacionOrigen());
 			tdto.setEstacionDestino(trayectos.getEstacionDestino());

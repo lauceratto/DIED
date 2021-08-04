@@ -24,7 +24,7 @@ public class Grafos {
 	private List<String> obtenerNodoVecino(String estacion, String nombreTransporte){ 
 		List<String> salida = new ArrayList<String>();
 		List<Trayecto> trayectos = new ArrayList<Trayecto>();
-		trayectos = gestorT.obtenerTrayectos(nombreTransporte);
+		trayectos = gestorT.obtenerTrayectos();
 		estaciones = gestorE.getEstaciones();
 		
 //		for(EstacionMultimodal e : estaciones) {
