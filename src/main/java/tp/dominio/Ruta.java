@@ -14,6 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Ruta")
 public class Ruta implements Serializable{
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id @GeneratedValue
@@ -21,16 +22,16 @@ public class Ruta implements Serializable{
 	private Integer id;
 
 	@Column(name = "origen")
-	private EstacionMultimodal origen;
+	private String origen;
 
 	@Column(name = "destino")
-	private EstacionMultimodal destino;
+	private String destino;
 	
 	@Column(name = "distancia")
-	private String distancia;
+	private Double distancia;
 	
 	@Column(name = "duracion")
-	private String duracion;
+	private Double duracion;
 	
 	@Column(name = "cantMaxPasajeros")
 	private Integer cantMaxPasajeros;
@@ -39,12 +40,37 @@ public class Ruta implements Serializable{
 	private Boolean estado;
 	
 	@Column(name = "costo")
-	private Float costo;
+	private Double costo;
+	
+	@Column(name = "transporte")
+	private String nombreTransporte;
 
+	public Ruta(String transporte,String origen, String destino, Double distancia, Double duracion, Integer cantMaxPasajeros,
+			Boolean estado, Double costo) {
+		this.origen = origen;
+		this.destino = destino;
+		this.distancia = distancia;
+		this.duracion = duracion;
+		this.cantMaxPasajeros = cantMaxPasajeros;
+		this.estado = estado;
+		this.costo = costo;
+		this.nombreTransporte = transporte;
+	}
 	public Ruta() {
 		
 	}
+	public Ruta(EstacionMultimodal ini,EstacionMultimodal fin){
+		this();
+		this.origen = ini.getNombre();
+		this.destino = fin.getNombre();
+	}
+
+	public Ruta(EstacionMultimodal ini,EstacionMultimodal fin,Number valor){
+		this(ini,fin);
+		
+	}
 	
+		
 	public Integer getId() {
 		return id;
 	}
@@ -53,35 +79,43 @@ public class Ruta implements Serializable{
 		this.id = id;
 	}
 
-	public EstacionMultimodal getOrigen() {
+	public String getNombreTransporte() {
+		return nombreTransporte;
+	}
+
+	public void setNombreTransporte(String nombreTransporte) {
+		this.nombreTransporte = nombreTransporte;
+	}
+
+	public String getOrigen() {
 		return origen;
 	}
 
-	public void setOrigen(EstacionMultimodal origen) {
+	public void setOrigen(String origen) {
 		this.origen = origen;
 	}
 
-	public EstacionMultimodal getDestino() {
+	public String getDestino() {
 		return destino;
 	}
 
-	public void setDestino(EstacionMultimodal destino) {
+	public void setDestino(String destino) {
 		this.destino = destino;
 	}
 
-	public String getDistancia() {
+	public Double getDistancia() {
 		return distancia;
 	}
 
-	public void setDistancia(String distancia) {
+	public void setDistancia(Double distancia) {
 		this.distancia = distancia;
 	}
 
-	public String getDuracion() {
+	public Double getDuracion() {
 		return duracion;
 	}
 
-	public void setDuracion(String duracion) {
+	public void setDuracion(Double duracion) {
 		this.duracion = duracion;
 	}
 
@@ -101,13 +135,15 @@ public class Ruta implements Serializable{
 		this.estado = estado;
 	}
 
-	public Float getCosto() {
+	public Double getCosto() {
 		return costo;
 	}
 
-	public void setCosto(Float costo) {
+	public void setCosto(Double costo) {
 		this.costo = costo;
 	}
+
+	
 	
 	
 }

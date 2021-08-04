@@ -6,25 +6,25 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import tp.dominio.EstacionMultimodal;
-import tp.dominio.Transporte;
-import tp.dominio.Trayecto;
+import tp.dominio.Ruta;
 
-public class TrayectoDAO {
+public class RutaDAO {
 
-	public void guardar(Trayecto t) {
+	public void guardar(Ruta ruta) {
 		EntityManagerFactory emf = conexionDAO.getInstance();
 		EntityManager man = emf.createEntityManager();
 		man.getTransaction().begin();
-		man.persist(t);
+		man.persist(ruta);
 		man.getTransaction().commit();
 		man.close();
 	}
-	public List<Trayecto> getTrayecto(String nombreTransporte) {
+
+	public List<Ruta> getRutas(String nombreTransporte) {
 		EntityManagerFactory emf = conexionDAO.getInstance();
 		EntityManager man = emf.createEntityManager();
-		List<Trayecto> trayectos = (List<Trayecto>) man.createQuery("FROM Trayecto WHERE transporte = '"+nombreTransporte+"'").getResultList();
+		List<Ruta> rutas = (List<Ruta>) man.createQuery("FROM Ruta WHERE transporte='"+nombreTransporte+"'").getResultList();
 		man.close();
-		return trayectos;
+		return rutas;
 	}
 
 }

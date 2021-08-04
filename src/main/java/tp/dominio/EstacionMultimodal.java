@@ -35,6 +35,8 @@ public class EstacionMultimodal implements Serializable {
 
 	@Column(name = "estado")
 	private Boolean estado;
+
+	//private String valor;
 	
 //	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estacionMultimodal")
 //	private List<HistorialDeMantenimiento> mantenimientos;
@@ -58,7 +60,9 @@ public class EstacionMultimodal implements Serializable {
 	public EstacionMultimodal() {
 	
 	}
-
+	public EstacionMultimodal(String nombre) {
+		this.nombre = nombre;
+	}
 	public EstacionMultimodal(String id, String nombre, String apertura, String cierre, Boolean estado) {
 		this.id=id;
 		this.nombre = nombre;
@@ -68,6 +72,12 @@ public class EstacionMultimodal implements Serializable {
 	}
 
 	
+//	public String getValor() {
+//		return valor;
+//	}
+//	public void setValor(String valor) {
+//		this.valor = valor;
+//	}
 	public String getId() {
 		return id;
 	}

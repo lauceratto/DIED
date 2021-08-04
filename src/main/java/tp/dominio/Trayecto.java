@@ -22,8 +22,11 @@ public class Trayecto implements Serializable{
 	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "estacion")
-	private String estaciones;
+	@Column(name = "estacionOrigen")
+	private String estacionOrigen;
+	
+	@Column(name = "estacionDestino")
+	private String estacionDestino;
 	
 	@Column(name = "transporte")
 	private String transporte;
@@ -32,9 +35,26 @@ public class Trayecto implements Serializable{
 		
 	}
 
-	public Trayecto(String nombreEstacion, String nombreTransporte) {
-		this.estaciones = nombreEstacion;
+	public Trayecto(String nombreEstacionOrigen,String nombreEstacionDestino, String nombreTransporte) {
+		this.estacionOrigen = nombreEstacionOrigen;
 		this.transporte = nombreTransporte;
+		this.estacionDestino = nombreEstacionDestino;
+	}
+
+	public String getEstacionOrigen() {
+		return estacionOrigen;
+	}
+
+	public void setEstacionOrigen(String estacionOrigen) {
+		this.estacionOrigen = estacionOrigen;
+	}
+
+	public String getEstacionDestino() {
+		return estacionDestino;
+	}
+
+	public void setEstacionDestino(String estacionDestino) {
+		this.estacionDestino = estacionDestino;
 	}
 
 	public String getTransporte() {
@@ -43,14 +63,6 @@ public class Trayecto implements Serializable{
 
 	public void setTransporte(String transporte) {
 		this.transporte = transporte;
-	}
-
-	public String getEstaciones() {
-		return estaciones;
-	}
-
-	public void setEstaciones(String estaciones) {
-		this.estaciones = estaciones;
 	}
 
 	public Integer getId() {

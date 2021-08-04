@@ -3,135 +3,198 @@ package tp.paneles;
 import javax.swing.JPanel;
 
 import tp.App.App;
+import tp.Exceptions.EstacionException;
+import tp.dominio.EstacionMultimodal;
+import tp.dominio.Ruta;
+import tp.dominio.Trayecto;
+import tp.gestores.GestorEstacion;
+import tp.gestores.GestorRuta;
+import tp.gestores.GestorTrayecto;
+import tp.grafos.Grafos;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
 
 public class PanelAltaTrayecto extends JPanel {
+	
 	public JTable table;
-	private TrayectoTableModel modeloTabla;
 	private JTextField textField;
 	private JTextField textDistancia;
 	private JTextField textDuracion;
-	private JTextField textCantPasajeros;
 	private JTextField textCosto;
+	private JComboBox<String> comboBoxOrigen;
+	private JComboBox<String> comboBoxDestino;
+	private GestorTrayecto gestorT = new GestorTrayecto();
+	private GestorEstacion gestorE = new GestorEstacion();
+	private GestorRuta gestorR = new GestorRuta();
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private Double distancia;
+	private Double duracion;
+	private JSpinner cantPasj;
+	private JRadioButton rdbtnActiva;
+	private JRadioButton rdbtnNoActiva;
+
+	
 	public PanelAltaTrayecto(String nombreTransporte,App app) {
 		setLayout(null);
 		
 		JLabel lblTransporte = new JLabel("Transporte");
 		lblTransporte.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblTransporte.setBounds(548, 71, 120, 27);
+		lblTransporte.setBounds(504, 84, 120, 27);
 		add(lblTransporte);
-		
-		JButton btnAgregar = new JButton("Agregar trayecto");
-		btnAgregar.setBounds(931, 166, 153, 23);
-		btnAgregar.addActionListener(l -> {
-			PanelAgregarEstacion panel = new PanelAgregarEstacion(nombreTransporte);
-			panel.setVisible(true);
-		});
-		add(btnAgregar);
-		
-		JButton btnEliminar = new JButton("Eliminar trayecto");
-		btnEliminar.setBounds(931, 234, 153, 23);
-		add(btnEliminar);
-		
-		modeloTabla = new TrayectoTableModel();
-		table = new JTable();
-		table.setModel(modeloTabla);
-		table.setBounds(416, 408, 728, -250);
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setSize(321, 146);
-		scrollPane.setLocation(548, 138);
-		this.add(scrollPane);
-		
-		JLabel lblNewLabel = new JLabel("Trayectos");
-		lblNewLabel.setBounds(548, 125, 87, 14);
-		add(lblNewLabel);
-		
+
 		textField = new JTextField(nombreTransporte);
 		textField.setBackground(Color.WHITE);
 		textField.setFont(new Font("Tahoma", Font.BOLD, 11));
 		textField.setEnabled(false);
-		textField.setBounds(730, 76, 86, 20);
+		textField.setBounds(665, 89, 86, 20);
 		add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Estacion Origen");
-		lblNewLabel_1.setBounds(548, 318, 99, 14);
+		lblNewLabel_1.setBounds(504, 164, 99, 14);
 		add(lblNewLabel_1);
 		
-		JComboBox comboBoxOrgien = new JComboBox();
-		comboBoxOrgien.setBounds(665, 314, 108, 22);
-		add(comboBoxOrgien);
+		comboBoxOrigen = new JComboBox<String>();
+		comboBoxOrigen.setBounds(665, 160, 108, 22);
+//		List<Trayecto> trayectos = new ArrayList<Trayecto>();
+//		trayectos = gestorT.obtenerTrayectos(nombreTransporte);
+		List<EstacionMultimodal> estacion = new ArrayList<EstacionMultimodal>();
+		estacion = gestorE.getEstaciones();
+		for(EstacionMultimodal em : estacion) {
+			this.comboBoxOrigen.addItem(em.getNombre());
+		}
+		this.comboBoxOrigen.setSelectedItem(null);
+		add(comboBoxOrigen);
 		
 		JLabel lblNewLabel_2 = new JLabel("Estacion Destino");
-		lblNewLabel_2.setBounds(823, 318, 99, 14);
+		lblNewLabel_2.setBounds(823, 164, 99, 14);
 		add(lblNewLabel_2);
 		
-		JComboBox comboBoxDestino = new JComboBox();
-		comboBoxDestino.setBounds(931, 314, 108, 22);
+		comboBoxDestino = new JComboBox<String>();
+		comboBoxDestino.setBounds(980, 160, 108, 22);
+
+		for(EstacionMultimodal em : estacion) {
+			this.comboBoxDestino.addItem(em.getNombre());
+		}
+		this.comboBoxDestino.setSelectedItem(null);
 		add(comboBoxDestino);
 		
 		JLabel lblNewLabel_3 = new JLabel("Distancia (Km)");
-		lblNewLabel_3.setBounds(548, 361, 87, 14);
+		lblNewLabel_3.setBounds(504, 235, 87, 14);
 		add(lblNewLabel_3);
 		
 		textDistancia = new JTextField();
-		textDistancia.setBounds(665, 358, 86, 20);
+		textDistancia.setBounds(665, 232, 86, 20);
 		add(textDistancia);
 		textDistancia.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Duracion (Min)");
-		lblNewLabel_4.setBounds(823, 361, 87, 14);
+		lblNewLabel_4.setBounds(823, 235, 87, 14);
 		add(lblNewLabel_4);
 		
 		textDuracion = new JTextField();
 		textDuracion.setColumns(10);
-		textDuracion.setBounds(931, 358, 86, 20);
+		textDuracion.setBounds(980, 232, 86, 20);
 		add(textDuracion);
 		
 		JLabel lblNewLabel_5 = new JLabel("Cantidad Max. de pasajeros");
-		lblNewLabel_5.setBounds(548, 404, 153, 14);
+		lblNewLabel_5.setBounds(504, 314, 189, 14);
 		add(lblNewLabel_5);
-		
-		textCantPasajeros = new JTextField();
-		textCantPasajeros.setBounds(730, 401, 86, 20);
-		add(textCantPasajeros);
-		textCantPasajeros.setColumns(10);
+		cantPasj = new JSpinner();
+		cantPasj.setBounds(665, 315, 46, 20);
+		add(cantPasj);
 		
 		JLabel lblNewLabel_6 = new JLabel("Costo ");
-		lblNewLabel_6.setBounds(853, 404, 69, 14);
+		lblNewLabel_6.setBounds(823, 314, 69, 14);
 		add(lblNewLabel_6);
 		
 		textCosto = new JTextField();
-		textCosto.setBounds(931, 401, 86, 20);
+		textCosto.setBounds(980, 311, 86, 20);
 		add(textCosto);
 		textCosto.setColumns(10);
 		
 		JLabel lblNewLabel_7 = new JLabel("Estado");
-		lblNewLabel_7.setBounds(548, 445, 61, 14);
+		lblNewLabel_7.setBounds(504, 385, 61, 14);
 		add(lblNewLabel_7);
 		
-		JRadioButton rdbtnActiva = new JRadioButton("Activa");
-		rdbtnActiva.setBounds(628, 441, 109, 23);
+		rdbtnActiva = new JRadioButton("Activa");
+		rdbtnActiva.setBounds(665, 381, 109, 23);
+		buttonGroup.add(rdbtnActiva);
 		add(rdbtnActiva);
 		
-		JRadioButton rdbtnNoActiva = new JRadioButton("No activa");
-		rdbtnNoActiva.setBounds(750, 441, 109, 23);
+		rdbtnNoActiva = new JRadioButton("No activa");
+		rdbtnNoActiva.setBounds(823, 381, 109, 23);
+		buttonGroup.add(rdbtnNoActiva);
 		add(rdbtnNoActiva);
 		
 		JButton btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(665, 505, 89, 23);
+		btnGuardar.setBounds(662, 469, 89, 23);
+		btnGuardar.addActionListener(e -> {
+			distancia = Double.parseDouble(this.textDistancia.getText().trim());
+			duracion = Double.parseDouble(this.textDuracion.getText().trim());
+			Double costo = Double.parseDouble(this.textCosto.getText().trim());
+			String origen = comboBoxOrigen.getSelectedItem().toString();
+			String destino = comboBoxDestino.getSelectedItem().toString();
+			Integer cantPasajeros = (Integer) this.cantPasj.getValue();
+			
+			Boolean estado = false;
+			if(rdbtnActiva.isSelected()) estado = true;
+				else estado = false;
+			try {
+				Ruta ruta = new Ruta(nombreTransporte,origen,destino,distancia, duracion, cantPasajeros, estado, costo);
+				gestorR.crearRuta(ruta);
+				gestorT.guardarTrayecto(origen, destino, nombreTransporte);
+				int n = JOptionPane.showConfirmDialog( null, "Desea crear una nueva ruta?", "Mensaje", JOptionPane.YES_NO_OPTION);
+				if (n == JOptionPane.YES_OPTION) {
+					limpiarformulario();
+				}
+			}catch(EstacionException e1) {
+				e1.printStackTrace();
+			};
+						
+		});
 		add(btnGuardar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(833, 505, 89, 23);
+		btnCancelar.setBounds(823, 469, 89, 23);
+		btnCancelar.addActionListener(e -> {
+			this.setVisible(false);
+			app.setContentPane(new PanelTransporte(app));
+			app.pack();
+			app.revalidate();
+			app.repaint();
+			app.setSize(1020, 720);
+			app.setLocationRelativeTo(null);
+			app.setExtendedState(app.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		});
 		add(btnCancelar);
+		
+		
+	}
+	public void limpiarformulario() {
+		this.textDistancia.setText("");
+		this.textDuracion.setText("");
+		this.textCosto.setText("");
+		this.comboBoxOrigen.setSelectedItem(null);
+		this.comboBoxDestino.setSelectedItem(null);
+		this.cantPasj.setValue(0);
+		this.rdbtnActiva.setSelected(false);
+		this.rdbtnNoActiva.setSelected(false);
 	}
 }

@@ -34,22 +34,30 @@ public class Boleto implements Serializable{
 	@Column(name = "fecha")
 	private LocalDate fecha;
 	
-//	@OneToOne(cascade = CascadeType.MERGE)
-//	@JoinColumn(name = "estacionOrigen")
-//	private EstacionMultimodal estacionOrigen;
-//	
-//	@OneToOne(cascade = CascadeType.MERGE)
-//	@JoinColumn(name = "estacionDestino")
-//	private EstacionMultimodal estacionDestino;
-//	
-//	@OneToMany(mappedBy = "es", cascade = CascadeType.ALL)
-//	private List<EstacionMultimodal> camino = new ArrayList<>();
+	@Column(name = "camino")
+	private String camino;
 	
 	@Column(name = "costo")
-	private Float costo;
+	private Double costo;
+	
+	@Column(name = "origen")
+	private String origen;
+	
+	@Column(name = "destino")
+	private String destino;
 
 	public Boleto() {
 		
+	}
+
+	public Boleto(Double costo,String correo2, String nombre2, LocalDate fechaVenta, String camino, String origen, String destino) {
+		this.correo = correo2;
+		this.nombre = nombre2;
+		this.fecha = fechaVenta;
+		this.camino = camino;
+		this.origen = origen;
+		this.destino = destino;
+		this.costo = costo;
 	}
 
 	public Integer getNroBoleto() {
@@ -84,35 +92,36 @@ public class Boleto implements Serializable{
 		this.fecha = fecha;
 	}
 
-//	public EstacionMultimodal getEstacionOrigen() {
-//		return estacionOrigen;
-//	}
-//
-//	public void setEstacionOrigen(EstacionMultimodal estacionOrigen) {
-//		this.estacionOrigen = estacionOrigen;
-//	}
-//
-//	public EstacionMultimodal getEstacionDestino() {
-//		return estacionDestino;
-//	}
-//
-//	public void setEstacionDestino(EstacionMultimodal estacionDestino) {
-//		this.estacionDestino = estacionDestino;
-//	}
-//
-//	public List<EstacionMultimodal> getCamino() {
-//		return camino;
-//	}
-//
-//	public void setCamino(List<EstacionMultimodal> camino) {
-//		this.camino = camino;
-//	}
 
-	public Float getCosto() {
+	public String getCamino() {
+		return camino;
+	}
+
+	public void setCamino(String camino) {
+		this.camino = camino;
+	}
+
+	public String getOrigen() {
+		return origen;
+	}
+
+	public void setOrigen(String origen) {
+		this.origen = origen;
+	}
+
+	public String getDestino() {
+		return destino;
+	}
+
+	public void setDestino(String destino) {
+		this.destino = destino;
+	}
+
+	public Double getCosto() {
 		return costo;
 	}
 
-	public void setCosto(Float costo) {
+	public void setCosto(Double costo) {
 		this.costo = costo;
 	}
 	
