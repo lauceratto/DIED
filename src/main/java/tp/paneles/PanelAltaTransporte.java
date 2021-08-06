@@ -15,12 +15,14 @@ import tp.gestores.GestorTransporte;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PanelAltaTransporte extends JPanel {
 	private JTextField textField;
 	private GestorTransporte gestorT = new GestorTransporte();
 	private JTextField textField_1;
-	
+	private JComboBox<String> comboColor;
 	public PanelAltaTransporte(App app) {
 		//setTitle("ALTA DE TRANSPORTE");
 		setLayout(null);
@@ -35,17 +37,14 @@ public class PanelAltaTransporte extends JPanel {
 		add(textField);
 		textField.setColumns(10);
 		
-		JComboBox comboColor = new JComboBox<String>();
+		List<Transporte> transportes = new ArrayList<Transporte>();
+		transportes = gestorT.getTransportes();
+		comboColor = new JComboBox<String>();
 		comboColor.setBounds(690, 200, 178, 22);
-		comboColor.setSelectedItem(null);
-		comboColor.addItem("Rojo");
-		comboColor.addItem("Azul");
-		comboColor.addItem("Verde");
-		comboColor.addItem("Amarillo");
-		comboColor.addItem("Blanco");
-		comboColor.addItem("Negro");
-		comboColor.addItem("Gris");
-		
+		for(Transporte est : transportes) {
+			this.comboColor.addItem(est.getColor());
+		}
+		comboColor.setSelectedItem(null);	
 		add(comboColor);
 		
 		JLabel lblNewLabel_1 = new JLabel("Color (*)");

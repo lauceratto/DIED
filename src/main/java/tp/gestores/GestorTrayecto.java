@@ -29,6 +29,17 @@ public class GestorTrayecto {
 		}
 		return t;
 	}
+	
+//	public String obtenerTransporte(String origen, String destino) {
+//		dao.obtenerTransp(origen,destino);
+//		return null;
+//	}
+	public List<String> obtenerEsaciones(){
+		
+		
+		return null;
+		
+	}
 
 
 }

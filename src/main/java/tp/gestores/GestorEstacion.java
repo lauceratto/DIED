@@ -1,6 +1,7 @@
 package tp.gestores;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,6 +82,23 @@ public class GestorEstacion {
 	public void actualizarEstacion(EstacionMultimodal estac) {
 		dao.actualizarEstacion(estac);
 		
+	}
+	public List<EstacionMultimodal> getEstacionesDisponibles() {
+		List<EstacionMultimodal> e =  new ArrayList<EstacionMultimodal>();
+		LocalDateTime locaDate = LocalDateTime.now();
+		int hora  = locaDate.getHour();
+		int min = locaDate.getMinute();
+		String horario = hora+":"+min;
+		for(EstacionMultimodal est: this.dao.getEstacionesDisponibles(horario)) {
+			EstacionMultimodal edto = new EstacionMultimodal();
+			edto.setId(est.getId());
+			edto.setNombre(est.getNombre());
+			edto.setHorarioApertura(est.getHorarioApertura());
+			edto.setHorarioCierre(est.getHorarioCierre());
+			edto.setEstado(est.getEstado());
+			e.add(edto);
+		}
+		return e;
 	}
 
 }

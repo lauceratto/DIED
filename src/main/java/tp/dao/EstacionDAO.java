@@ -124,5 +124,12 @@ public class EstacionDAO {
 		man.getTransaction().commit();
 		man.close();
 	}
+	public List<EstacionMultimodal> getEstacionesDisponibles(String horario) {
+		EntityManagerFactory emf = conexionDAO.getInstance();
+		EntityManager man = emf.createEntityManager();
+		List<EstacionMultimodal> estaciones = (List<EstacionMultimodal>) man.createQuery("FROM EstacionMultimodal WHERE estado = '"+true+"'").getResultList();
+		man.close();
+		return estaciones;
+	}
 
 }

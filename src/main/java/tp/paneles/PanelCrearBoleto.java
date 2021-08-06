@@ -38,7 +38,7 @@ public class PanelCrearBoleto extends JPanel {
 	private JTextField textOrigen;
 	private JTextField textDestino;
 	
-	public PanelCrearBoleto(String nombreTransporte,List<List<String>> cam, App app,String origen, String destino) {
+	public PanelCrearBoleto(List<List<String>> cam, App app,String origen, String destino) {
 		setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Boleto");
@@ -113,11 +113,11 @@ public class PanelCrearBoleto extends JPanel {
 		add(rdbtnNewRadioButton_2);
 	//	System.out.println(gestorR.obtenerMenorDistancia(nombreTransporte,cam));
 		if(rdbtnDistancia.isSelected()) {
-			gestorR.obtenerMenorDistancia(nombreTransporte,cam);
+			gestorR.obtenerMenorDistancia(origen,destino);
 		}else if(rdbtnMasRapido.isSelected()) {
-			gestorR.obtenerMasRapido(cam);
+			gestorR.obtenerMasRapido(origen,destino);
 		}else {
-			gestorR.obtenerMasBarato(cam);
+			gestorR.obtenerMasBarato(origen,destino);
 		}
 
 		

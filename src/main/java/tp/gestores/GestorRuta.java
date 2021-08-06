@@ -11,9 +11,12 @@ import tp.Exceptions.EstacionException;
 import tp.dao.RutaDAO;
 import tp.dominio.EstacionMultimodal;
 import tp.dominio.Ruta;
+import tp.grafos.Grafos;
 
 public class GestorRuta {
 	private RutaDAO dao = new RutaDAO();
+	private Grafos grafo = new Grafos();
+	private List<List<String>> cam;
 
 	public Ruta crearRuta(Ruta ruta) throws EstacionException {
 		if(ruta.getOrigen().equals(ruta.getDestino())) {
@@ -36,9 +39,9 @@ public class GestorRuta {
 		return ruta;
 	}
 	
-	public List<Ruta> getRutas(String nombreTransporte) {
+	public List<Ruta> getRutas(String origen,String destino) {
 		List<Ruta> e =  new ArrayList<Ruta>();
-		for(Ruta rt: this.dao.getRutas(nombreTransporte)) {
+		for(Ruta rt: this.dao.getRutas(origen,destino)) {
 			Ruta edto = new Ruta();
 			edto.setCantMaxPasajeros(rt.getCantMaxPasajeros());
 			edto.setDestino(rt.getDestino());
@@ -53,8 +56,9 @@ public class GestorRuta {
 		return e;
 	}
 
-	public void obtenerMenorDistancia(String nombreTransporte,List<List<String>> cam) {
-		List<Ruta> rutas = getRutas(nombreTransporte);
+	public void obtenerMenorDistancia(String origen,String destino) {
+		List<Ruta> rutas = getRutas(origen,destino);
+		cam = grafo.caminos(new EstacionMultimodal(origen), new EstacionMultimodal(destino));
 		for(Ruta r: rutas) {
 			for(int i=0;i<cam.size();i++) {
 				for(int j=0;j<cam.get(i).size();j++) {
@@ -68,12 +72,12 @@ public class GestorRuta {
 
 	}
 
-	public void obtenerMasBarato(List<List<String>> cam) {
+	public void obtenerMasBarato(String origen,String destino) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void obtenerMasRapido(List<List<String>> cam) {
+	public void obtenerMasRapido(String origen,String destino) {
 		// TODO Auto-generated method stub
 		
 	}

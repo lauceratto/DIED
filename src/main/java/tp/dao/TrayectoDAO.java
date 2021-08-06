@@ -26,5 +26,6 @@ public class TrayectoDAO {
 		man.close();
 		return trayectos;
 	}
-
+	
+// WHERE transporte = '"+nombreTransporte+"'
 }

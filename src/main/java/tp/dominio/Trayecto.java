@@ -73,5 +73,4 @@ public class Trayecto implements Serializable{
 		this.id = id;
 	}
 	
-	
 }

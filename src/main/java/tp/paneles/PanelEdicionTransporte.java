@@ -13,6 +13,10 @@ import tp.Exceptions.TransporteException;
 import tp.dominio.Transporte;
 import tp.gestores.GestorTransporte;
 import javax.swing.JRadioButton;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
@@ -20,7 +24,7 @@ public class PanelEdicionTransporte extends JPanel {
 	private GestorTransporte gestorT = new GestorTransporte();
 	private JTextField txtNombre;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-
+	private JComboBox<String> comboColor;
 	public PanelEdicionTransporte(Transporte transporte, App app) {
 		setLayout(null);
 		JLabel lblNewLabel = new JLabel("Nombre (*)");
@@ -33,18 +37,14 @@ public class PanelEdicionTransporte extends JPanel {
 		add(txtNombre);
 		txtNombre.setColumns(10);
 		
-		JComboBox comboColor = new JComboBox<String>();
+		List<Transporte> transportes = new ArrayList<Transporte>();
+		transportes = gestorT.getTransportes();
+		comboColor = new JComboBox<String>();
 		comboColor.setBounds(690, 200, 178, 22);
-
-		comboColor.addItem("Azul");
-		comboColor.addItem("Verde");
-		comboColor.addItem("Amarillo");
-		comboColor.addItem("Rojo");
-		comboColor.addItem("Blanco");
-		comboColor.addItem("Negro");
-		comboColor.addItem("Gris");
+		for(Transporte est : transportes) {
+			this.comboColor.addItem(est.getColor());
+		}
 		comboColor.setSelectedItem(transporte.getColor());
-		
 		add(comboColor);
 		
 		JLabel lblNewLabel_1 = new JLabel("Color (*)");
