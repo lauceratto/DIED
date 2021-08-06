@@ -16,6 +16,7 @@ public class GestorBoleto {
 			JOptionPane.showMessageDialog(null, "No pueden haber campos nulos", "Advertencia", 0);
 			}else {
 				Boleto b = new Boleto();
+				b.setNroBoleto(boleto.getNroBoleto());
 				b.setNombre(boleto.getNombre());
 				b.setCorreo(boleto.getCorreo());
 				b.setFecha(boleto.getFecha());

@@ -48,7 +48,7 @@ public class PanelAltaTrayecto extends JPanel {
 	private JSpinner cantPasj;
 	private JRadioButton rdbtnActiva;
 	private JRadioButton rdbtnNoActiva;
-
+	private Grafos grafo = new Grafos();
 	
 	public PanelAltaTrayecto(String nombreTransporte,App app) {
 		setLayout(null);
@@ -72,12 +72,11 @@ public class PanelAltaTrayecto extends JPanel {
 		
 		comboBoxOrigen = new JComboBox<String>();
 		comboBoxOrigen.setBounds(665, 160, 108, 22);
-//		List<Trayecto> trayectos = new ArrayList<Trayecto>();
-//		trayectos = gestorT.obtenerTrayectos(nombreTransporte);
-		List<EstacionMultimodal> estacion = new ArrayList<EstacionMultimodal>();
-		estacion = gestorE.getEstaciones();
-		for(EstacionMultimodal em : estacion) {
-			this.comboBoxOrigen.addItem(em.getNombre());
+
+		List<String> estaciones = new ArrayList<String>();
+		estaciones = grafo.pageRank();
+		for(String em : estaciones) {
+			this.comboBoxOrigen.addItem(em);
 		}
 		this.comboBoxOrigen.setSelectedItem(null);
 		add(comboBoxOrigen);
@@ -89,8 +88,8 @@ public class PanelAltaTrayecto extends JPanel {
 		comboBoxDestino = new JComboBox<String>();
 		comboBoxDestino.setBounds(980, 160, 108, 22);
 
-		for(EstacionMultimodal em : estacion) {
-			this.comboBoxDestino.addItem(em.getNombre());
+		for(String em : estaciones) {
+			this.comboBoxDestino.addItem(em);
 		}
 		this.comboBoxDestino.setSelectedItem(null);
 		add(comboBoxDestino);
@@ -163,6 +162,15 @@ public class PanelAltaTrayecto extends JPanel {
 				int n = JOptionPane.showConfirmDialog( null, "Desea crear una nueva ruta?", "Mensaje", JOptionPane.YES_NO_OPTION);
 				if (n == JOptionPane.YES_OPTION) {
 					limpiarformulario();
+				}else {
+					this.setVisible(false);
+					app.setContentPane(new PanelTransporte(app));
+					app.pack();
+					app.revalidate();
+					app.repaint();
+					app.setSize(1020, 720);
+					app.setLocationRelativeTo(null);
+					app.setExtendedState(app.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 				}
 			}catch(EstacionException e1) {
 				e1.printStackTrace();

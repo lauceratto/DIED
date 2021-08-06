@@ -56,20 +56,21 @@ public class GestorRuta {
 		return e;
 	}
 
-	public void obtenerMenorDistancia(String origen,String destino) {
+	public Double obtenerMenorDistancia(String origen,String destino) {
 		List<Ruta> rutas = getRutas(origen,destino);
+		Double duracion =0.0;
 		cam = grafo.caminos(new EstacionMultimodal(origen), new EstacionMultimodal(destino));
-		for(Ruta r: rutas) {
-			for(int i=0;i<cam.size();i++) {
-				for(int j=0;j<cam.get(i).size();j++) {
+		for(int i=0;i<cam.size();i++) {
+			for(int j=0;j<cam.get(i).size();j++) {
+				for(Ruta r: rutas) {
 					 if(r.getOrigen().equals(cam.get(i).get(j))) {
-//						 dist[j]
+						 duracion += r.getDuracion(); 
 					 }
 				 }	 
 			 }
 		}
-//		return dist;
-
+		return duracion;
+		
 	}
 
 	public void obtenerMasBarato(String origen,String destino) {

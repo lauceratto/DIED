@@ -21,9 +21,9 @@ public class Boleto implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id @GeneratedValue
+	@Id 
 	@Column(name = "nroBoleto")
-	private Integer nroBoleto;
+	private String nroBoleto;
 
 	@Column(name = "correo")
 	private String correo;
@@ -50,7 +50,7 @@ public class Boleto implements Serializable{
 		
 	}
 
-	public Boleto(Double costo,String correo2, String nombre2, LocalDate fechaVenta, String camino, String origen, String destino) {
+	public Boleto(String nroBoleto,Double costo,String correo2, String nombre2, LocalDate fechaVenta, String camino, String origen, String destino) {
 		this.correo = correo2;
 		this.nombre = nombre2;
 		this.fecha = fechaVenta;
@@ -58,13 +58,14 @@ public class Boleto implements Serializable{
 		this.origen = origen;
 		this.destino = destino;
 		this.costo = costo;
+		this.nroBoleto = nroBoleto;
 	}
 
-	public Integer getNroBoleto() {
+	public String getNroBoleto() {
 		return nroBoleto;
 	}
 
-	public void setNroBoleto(Integer nroBoleto) {
+	public void setNroBoleto(String nroBoleto) {
 		this.nroBoleto = nroBoleto;
 	}
 

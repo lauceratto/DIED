@@ -16,15 +16,19 @@ import java.util.stream.Collectors;
 
 import tp.dominio.EstacionMultimodal;
 import tp.dominio.Ruta;
+import tp.dominio.Transporte;
 import tp.dominio.Trayecto;
 import tp.gestores.GestorEstacion;
+import tp.gestores.GestorTransporte;
 import tp.gestores.GestorTrayecto;
 
 public class Grafos {
 	private List<EstacionMultimodal> estaciones;
 	private List<Ruta> rutas;
+	private List<String> est;
 	private GestorTrayecto gestorT = new GestorTrayecto();
 	private GestorEstacion gestorE = new GestorEstacion();
+	private GestorTransporte gestorTransp = new GestorTransporte();
 	
 	public Grafos() {
 		this.estaciones = new ArrayList<EstacionMultimodal>();
@@ -102,59 +106,5 @@ public class Grafos {
 	    	}
 	    }
 	 
-//	 private Map<EstacionMultimodal, Integer> minimumPathDijkstra(EstacionMultimodal origen) {
-//
-//	    	// inicializo todas las distancias a INFINITO
-//	    	Map<EstacionMultimodal, Integer> distancias = new HashMap<EstacionMultimodal, Integer>();
-//	    	for(EstacionMultimodal unVertex : this.estaciones) {
-//	    		distancias.put(unVertex, Integer.MAX_VALUE);
-//	    	}
-//	    	distancias.put(origen, 0);
-//	    	
-//	    	// guardo visitados y pendientes de visitar
-//	    	Set<EstacionMultimodal> visitados = new HashSet<EstacionMultimodal>();
-//	    	TreeMap<Integer,EstacionMultimodal> aVisitar= new TreeMap<Integer,EstacionMultimodal>();
-//
-//	    	aVisitar.put(0,origen);
-//	    	 
-//	    	while (!aVisitar.isEmpty()) {
-//	    		Entry<Integer, EstacionMultimodal> nodo = aVisitar.pollFirstEntry();
-//	    		visitados.add(nodo.getValue());
-//	    		
-//	        	int nuevaDistancia = Integer.MIN_VALUE;
-//	        	List<EstacionMultimodal> adyacentes = this.obtenerNodoVecino2(nodo.getValue());
-//	        	
-//	        	for(EstacionMultimodal unAdy : adyacentes) {
-//	        		if(!visitados.contains(unAdy)) {
-//	        			Ruta enlace = this.buscarRuta(nodo.getValue(), unAdy);
-//	        			if(enlace !=null) {
-//	        				nuevaDistancia = enlace.getValue().intValue();
-//	        			}
-//	        			int distanciaHastaAdy = distancias.get(nodo.getValue()).intValue();
-//	        			int distanciaAnterior = distancias.get(unAdy).intValue();
-//	        			if(distanciaHastaAdy  + nuevaDistancia < distanciaAnterior ) {
-//	        				distancias.put(unAdy, distanciaHastaAdy  + nuevaDistancia);
-//	        				aVisitar.put(distanciaHastaAdy  + nuevaDistancia,unAdy);
-//	        			}        			
-//	        		}
-//	        	}    		
-//	    	}
-//	    	System.out.println("DISTANCIAS DESDE "+origen);
-//	    	System.out.println("Resultado: "+distancias);
-//	    	return distancias;
-//	    }
-//	 
-//		private List<EstacionMultimodal> obtenerNodoVecino2(EstacionMultimodal estacionMultimodal){ 
-//			List<EstacionMultimodal> salida = new ArrayList<EstacionMultimodal>();
-//			List<Trayecto> trayectos = new ArrayList<Trayecto>();
-//			trayectos = gestorT.obtenerTrayectos();
-//				for(Trayecto enlace : trayectos){
-//					if( enlace.getEstacionOrigen().equals(estacionMultimodal)){
-//						salida.add(enlace.getEstacionDestino());
-//							
-//					}
-//				}
-//			return salida;
-//		}
-	    
+	
 }

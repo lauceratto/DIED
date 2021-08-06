@@ -13,13 +13,16 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import tp.App.App;
 import tp.Exceptions.BoletoException;
 import tp.dominio.Boleto;
+import tp.dominio.Ruta;
 import tp.gestores.GestorBoleto;
 import tp.gestores.GestorRuta;
+import tp.grafos.Grafos;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -37,8 +40,10 @@ public class PanelCrearBoleto extends JPanel {
 	private GestorRuta gestorR = new GestorRuta();
 	private JTextField textOrigen;
 	private JTextField textDestino;
+	private ArrayList<Ruta> rutas = null;
+	private Grafos grafos = new Grafos();
 	
-	public PanelCrearBoleto(List<List<String>> cam, App app,String origen, String destino) {
+	public PanelCrearBoleto(String camino,List<List<String>> cam, App app,String origen, String destino) {
 		setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Boleto");
@@ -51,8 +56,7 @@ public class PanelCrearBoleto extends JPanel {
 		lblNewLabel_1.setBounds(400, 180, 73, 14);
 		add(lblNewLabel_1);
 		
-		textField = new JTextField("-");
-		textField.setEditable(false);
+		textField = new JTextField();
 		textField.setBounds(559, 174, 49, 20);
 		add(textField);
 		textField.setColumns(10);
@@ -89,36 +93,6 @@ public class PanelCrearBoleto extends JPanel {
 		add(textField_3);
 		textField_3.setColumns(10);
 
-		JLabel lblNewLabel_7 = new JLabel("Camino a seguir");
-		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_7.setBounds(400, 440, 107, 22);
-		add(lblNewLabel_7);
-
-		JRadioButton rdbtnMasRapido = new JRadioButton("M\u00E1s r\u00E1pido");
-		rdbtnMasRapido.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		rdbtnMasRapido.setBounds(655, 440, 97, 23);
-		buttonGroup.add(rdbtnMasRapido);
-		add(rdbtnMasRapido);
-
-		JRadioButton rdbtnDistancia = new JRadioButton("Menor distancia");
-		rdbtnDistancia.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		rdbtnDistancia.setBounds(779, 440, 126, 22);
-		buttonGroup.add(rdbtnDistancia);
-		add(rdbtnDistancia);
-
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("M\u00E1s barato");
-		rdbtnNewRadioButton_2.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		rdbtnNewRadioButton_2.setBounds(534, 440, 109, 23);
-		buttonGroup.add(rdbtnNewRadioButton_2);
-		add(rdbtnNewRadioButton_2);
-	//	System.out.println(gestorR.obtenerMenorDistancia(nombreTransporte,cam));
-		if(rdbtnDistancia.isSelected()) {
-			gestorR.obtenerMenorDistancia(origen,destino);
-		}else if(rdbtnMasRapido.isSelected()) {
-			gestorR.obtenerMasRapido(origen,destino);
-		}else {
-			gestorR.obtenerMasBarato(origen,destino);
-		}
 
 		
 		JLabel lblNewLabel_8 = new JLabel("Costo");
@@ -160,18 +134,11 @@ public class PanelCrearBoleto extends JPanel {
 		btnNewButton.addActionListener(e -> {
 			String correo = this.textField_1.getText();
 			String nombre = this.textField_2.getText();
+			String id = this.textField.getText();
 			Double costo = 0.0;
-			String camino ;
-
-			if(rdbtnDistancia.isSelected()) {
-				camino = "Menor distancia";
-			}else if(rdbtnMasRapido.isSelected()) {
-				camino = "Mas rapido";
-			}else {
-				camino = "Mas barato";
-			}
+						
 			try {
-				Boleto boleto = new Boleto(costo,correo, nombre, hoy,camino,origen, destino); 
+				Boleto boleto = new Boleto(id,costo,correo, nombre, hoy,camino,origen, destino); 
 				gestorB.crearBoleto(boleto);
 			}catch(BoletoException b) {
 				b.printStackTrace();
