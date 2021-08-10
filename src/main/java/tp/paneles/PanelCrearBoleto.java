@@ -43,7 +43,7 @@ public class PanelCrearBoleto extends JPanel {
 	private ArrayList<Ruta> rutas = null;
 	private Grafos grafos = new Grafos();
 	
-	public PanelCrearBoleto(String camino,List<List<String>> cam, App app,String origen, String destino) {
+	public PanelCrearBoleto(String camino,List<List<String>> cam, App app,String origen, String destino, Double costo) {
 		setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Boleto");
@@ -93,21 +93,20 @@ public class PanelCrearBoleto extends JPanel {
 		add(textField_3);
 		textField_3.setColumns(10);
 
-
 		
 		JLabel lblNewLabel_8 = new JLabel("Costo");
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_8.setBounds(400, 496, 46, 14);
+		lblNewLabel_8.setBounds(400, 420, 46, 14);
 		add(lblNewLabel_8);
 
-		textField_4 = new JTextField();
-		textField_4.setBounds(557, 494, 86, 20);
+		textField_4 = new JTextField("$"+costo);
+		textField_4.setBounds(557, 420, 86, 20);
 		textField_4.setEditable(false);
 		add(textField_4);
 		textField_4.setColumns(10);
 
 		JButton btnNewButton_1 = new JButton("Cancelar");
-		btnNewButton_1.setBounds(471, 548, 89, 23);
+		btnNewButton_1.setBounds(471, 480, 89, 23);
 		btnNewButton_1.addActionListener(l -> {
 			this.setVisible(false);
 			app.setContentPane(new PanelTrayecto(app));
@@ -135,7 +134,7 @@ public class PanelCrearBoleto extends JPanel {
 			String correo = this.textField_1.getText();
 			String nombre = this.textField_2.getText();
 			String id = this.textField.getText();
-			Double costo = 0.0;
+			
 						
 			try {
 				Boleto boleto = new Boleto(id,costo,correo, nombre, hoy,camino,origen, destino); 
@@ -144,7 +143,7 @@ public class PanelCrearBoleto extends JPanel {
 				b.printStackTrace();
 			}
 		});
-		btnNewButton.setBounds(646, 548, 126, 23);
+		btnNewButton.setBounds(646, 480, 126, 23);
 		add(btnNewButton);
 		
 		textOrigen = new JTextField(origen);

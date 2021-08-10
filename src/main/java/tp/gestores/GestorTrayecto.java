@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import tp.dao.TrayectoDAO;
+import tp.dominio.Ruta;
 import tp.dominio.Transporte;
 import tp.dominio.Trayecto;
 
@@ -34,12 +35,5 @@ public class GestorTrayecto {
 //		dao.obtenerTransp(origen,destino);
 //		return null;
 //	}
-	public List<String> obtenerEsaciones(){
-		
-		
-		return null;
-		
-	}
-
 
 }

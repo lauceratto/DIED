@@ -58,9 +58,9 @@ public class Grafos {
 			//System.out.println(entry.getKey().getNombre()+" "+entry.getValue());
 		});
 		Collections.reverse(lista);
-		for(String l: lista) {
-			System.out.println(l);
-		}
+//		for(String l: lista) {
+//			System.out.println(l);
+//		}
 		return lista;
 	}
 			
@@ -96,7 +96,7 @@ public class Grafos {
 	    		if(ad.equals(v2)) {
 	    			copiaVisitados.add(ad);
 					todos.add(new ArrayList<String>(copiaVisitados));
-					System.out.println("Camino!: " +copiaVisitados.toString());
+//					System.out.println("Camino!: " +copiaVisitados.toString());
 	    		}else {
 	    			if(!copiaVisitados.contains(ad)) {
 	    				copiaVisitados.add(ad);

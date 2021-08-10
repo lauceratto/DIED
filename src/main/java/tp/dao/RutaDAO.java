@@ -22,9 +22,15 @@ public class RutaDAO {
 	public List<Ruta> getRutas(String origen,String destino) {
 		EntityManagerFactory emf = conexionDAO.getInstance();
 		EntityManager man = emf.createEntityManager();
-		List<Ruta> rutas = (List<Ruta>) man.createQuery("FROM Ruta WHERE origen = '"+origen+"', destino = '"+destino+"'").getResultList();
+		List<Ruta> rutas = (List<Ruta>) man.createQuery("FROM Ruta WHERE origen = '"+origen+"' AND destino = '"+destino+"'").getResultList();
 		man.close();
 		return rutas;
 	}
-
+	public List<Ruta> getRutas() {
+		EntityManagerFactory emf = conexionDAO.getInstance();
+		EntityManager man = emf.createEntityManager();
+		List<Ruta> rutas = (List<Ruta>) man.createQuery("FROM Ruta").getResultList();
+		man.close();
+		return rutas;
+	}
 }

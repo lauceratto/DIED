@@ -4,25 +4,21 @@ import javax.swing.JFrame;
 
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
 import tp.App.App;
 import tp.dominio.EstacionMultimodal;
-import tp.dominio.Ruta;
-import tp.dominio.Transporte;
-import tp.dominio.Trayecto;
+
 import tp.gestores.GestorEstacion;
 import tp.gestores.GestorRuta;
 import tp.gestores.GestorTransporte;
 import tp.gestores.GestorTrayecto;
+import tp.grafos.CrearGrafo;
 import tp.grafos.Grafos;
 
 import java.awt.Font;
-import java.sql.Array;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -32,27 +28,24 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
-import javax.swing.JTextArea;
-
 public class PanelTrayecto extends JPanel {
 
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private GestorEstacion gestorE = new GestorEstacion(); 
-	private GestorTransporte gestorTran = new GestorTransporte();
-	private GestorTrayecto gestorT = new GestorTrayecto();
 	private GestorRuta gestorR = new GestorRuta();
 	private JComboBox<String> comboBoxOrigen;
 	private JComboBox<String> comboBoxDestino;
 	private Grafos grafo = new Grafos();
-	private JComboBox<String> comboBoxTransporte;
 	private List<List<String>> cam;
-	
-	
+	private Integer num=0;
+	private Double valor=0.0;
+	private Double costo=0.0;
+	private Double dist = 0.0;
+
 	public PanelTrayecto(App app) {
 		setLayout(null);
 		
 		comboBoxOrigen = new JComboBox<String>();
-		comboBoxOrigen.setBounds(507, 202, 131, 22);
+		comboBoxOrigen.setBounds(507, 177, 131, 22);
 		List<String> estaciones = new ArrayList<String>();
 		estaciones = grafo.pageRank();
 		for(String est : estaciones) {
@@ -63,17 +56,17 @@ public class PanelTrayecto extends JPanel {
 		
 		JLabel lblOrigen = new JLabel("ORIGEN");
 		lblOrigen.setHorizontalAlignment(SwingConstants.CENTER);
-		lblOrigen.setBounds(425, 206, 72, 14);
+		lblOrigen.setBounds(425, 181, 72, 14);
 		
 		add(lblOrigen);
 		
 		JLabel lblDestino = new JLabel("DESTINO");
 		lblDestino.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDestino.setBounds(710, 206, 92, 14);
+		lblDestino.setBounds(710, 181, 92, 14);
 		add(lblDestino);
 		
 		comboBoxDestino = new JComboBox<String>();
-		comboBoxDestino.setBounds(812, 202, 131, 22);
+		comboBoxDestino.setBounds(810, 177, 131, 22);
 		for(String est : estaciones) {
 			this.comboBoxDestino.addItem(est);
 		}
@@ -82,39 +75,30 @@ public class PanelTrayecto extends JPanel {
 		
 		JLabel lblNewLabel_7 = new JLabel("Camino a seguir");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_7.setBounds(436, 513, 107, 22);
-		lblNewLabel_7.setVisible(false);
+		lblNewLabel_7.setBounds(441, 234, 107, 22);
 		add(lblNewLabel_7);
 
 		JRadioButton rdbtnMasRapido = new JRadioButton("M\u00E1s r\u00E1pido");
 		rdbtnMasRapido.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		rdbtnMasRapido.setBounds(710, 513, 97, 23);
-		rdbtnMasRapido.setVisible(false);
+		rdbtnMasRapido.setBounds(687, 234, 97, 23);
 		buttonGroup.add(rdbtnMasRapido);
 		add(rdbtnMasRapido);
 
 		JRadioButton rdbtnDistancia = new JRadioButton("Menor distancia");
 		rdbtnDistancia.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		rdbtnDistancia.setBounds(836, 513, 126, 22);
-		rdbtnDistancia.setVisible(false);
+		rdbtnDistancia.setBounds(810, 234, 126, 22);
 		buttonGroup.add(rdbtnDistancia);
 		add(rdbtnDistancia);
 
 		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("M\u00E1s barato");
 		rdbtnNewRadioButton_2.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		rdbtnNewRadioButton_2.setBounds(576, 513, 109, 23);
-		rdbtnNewRadioButton_2.setVisible(false);
+		rdbtnNewRadioButton_2.setBounds(572, 234, 109, 23);
 		buttonGroup.add(rdbtnNewRadioButton_2);
 		add(rdbtnNewRadioButton_2);
 		
-		JLabel lblNewLabel = new JLabel("Lista de Trayectos");
-		lblNewLabel.setBounds(436, 328, 120, 14);
-		lblNewLabel.setVisible(false);
-		add(lblNewLabel);
-		
 		JButton btnComprarBoleto = new JButton("Comprar Boleto");
 		btnComprarBoleto.setVisible(false);
-		btnComprarBoleto.setBounds(616, 586, 168, 23);
+		btnComprarBoleto.setBounds(616, 348, 168, 23);
 		btnComprarBoleto.addActionListener(l -> {
 			if(cam.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "No se puede comprar un boleto para el cual no existe trayecto");
@@ -127,8 +111,9 @@ public class PanelTrayecto extends JPanel {
 				}else {
 					camino = "Mas barato";
 				}
+				
 				this.setVisible(false);
-				app.setContentPane(new PanelCrearBoleto(camino,cam,app,comboBoxOrigen.getSelectedItem().toString(),comboBoxDestino.getSelectedItem().toString()));
+				app.setContentPane(new PanelCrearBoleto(camino,cam,app,comboBoxOrigen.getSelectedItem().toString(),comboBoxDestino.getSelectedItem().toString(),costo));
 				app.pack();
 				app.revalidate();
 				app.repaint();
@@ -152,40 +137,76 @@ public class PanelTrayecto extends JPanel {
 				String origen = comboBoxOrigen.getSelectedItem().toString();
 				String destino = comboBoxDestino.getSelectedItem().toString();
 
-				cam = grafo.caminos(new EstacionMultimodal(origen), new EstacionMultimodal(destino));
-
-				List<List<String>> lista = null;
-				
+				cam = grafo.caminos(new EstacionMultimodal(origen), new EstacionMultimodal(destino));			
 				if(cam.isEmpty()) {
 					JOptionPane.showMessageDialog(null,"No existen caminos que unan las 2 estaciones");
 				}else {
 					lblNewLabel_7.setVisible(true);
 					btnComprarBoleto.setVisible(true);
-					lblNewLabel.setVisible(true);
-					rdbtnMasRapido.setVisible(true);
-					rdbtnDistancia.setVisible(true);
-					rdbtnNewRadioButton_2.setVisible(true);
-					Integer i=0;
-					while(i<cam.size()) {
-						System.out.println(cam.get(i));
-						//modeloTabla.setValueAt(cam.get(i), i, 0);	
-						lista = cam;
-						i++;
+					JFrame mvn= new JFrame("Ventana del grafo");
+					mvn.setBounds(0,0, 400, 400);
+					if(buttonGroup.isSelected(null)) {
+						
+						mvn.setContentPane(new CrearGrafo(cam.get(0)));
+						
+					}else if(rdbtnDistancia.isSelected()) {
+						Number[] list = gestorR.obtenerMenorDistancia(origen, destino);
+						num = (Integer) list[0];
+						valor= (Double) list[1];
+						costo = (Double) list[2];
+						dist = (Double) list[3];
+						mvn.setContentPane(new CrearGrafo(cam.get(num)));
+						JLabel lbl = new JLabel("Duracion aprox. "+valor+" min.");
+						JLabel lbl1 = new JLabel("Costo aprox. $"+costo);
+						JLabel lbl2 = new JLabel("Distancia aprox. "+dist+" km.");
+						lbl.setBounds(60, 120, 170, 14);
+						lbl1.setBounds(60, 140, 170, 14);
+						lbl2.setBounds(60, 160, 170, 14);
+						mvn.add(lbl);
+						mvn.add(lbl1);
+						mvn.add(lbl2);
 					}
-					TrayectoTableModel modeloTabla = new TrayectoTableModel(lista);
-					JTable table = new JTable();
-					table.setModel(modeloTabla);
-					table.setBounds(416, 408, 728, -250);
-					JScrollPane scrollPane = new JScrollPane(table);
-					scrollPane.setSize(490, 130);
-					scrollPane.setLocation(453, 353);
-					this.add(scrollPane);
+					else if(rdbtnMasRapido.isSelected()) {
+						Number[] list = gestorR.obtenerMasRapido(origen, destino);
+						num = (Integer) list[0];
+						dist = (Double) list[1];
+						valor = (Double) list[2];
+						costo = (Double) list[3];
+						mvn.setContentPane(new CrearGrafo(cam.get(num)));
+						JLabel lbl = new JLabel("Duracion aprox. "+valor+" min.");
+						JLabel lbl1 = new JLabel("Costo aprox. $"+costo);
+						JLabel lbl2 = new JLabel("Distancia aprox. "+dist+" km.");
+						lbl.setBounds(60, 120, 170, 14);
+						lbl1.setBounds(60, 140, 170, 14);
+						lbl2.setBounds(60, 160, 170, 14);
+						mvn.add(lbl);
+						mvn.add(lbl1);
+						mvn.add(lbl2);
+					}else if(rdbtnNewRadioButton_2.isSelected()) {
+						Number[] list = gestorR.obtenerMasBarato(origen, destino);
+						num = (Integer) list[0];
+						costo = (Double) list[1];
+						valor = (Double) list[2];
+						dist = (Double) list[3];
+						mvn.setContentPane(new CrearGrafo(cam.get(num)));
+						JLabel lbl = new JLabel("Duracion aprox. "+valor+" min.");
+						JLabel lbl1 = new JLabel("Costo aprox. $"+costo);
+						JLabel lbl2 = new JLabel("Distancia aprox. "+dist+" km.");
+						lbl.setBounds(60, 120, 170, 14);
+						lbl1.setBounds(60, 140, 170, 14);
+						lbl2.setBounds(60, 160, 170, 14);
+						mvn.add(lbl);
+						mvn.add(lbl1);
+						mvn.add(lbl2);
+					}
+					mvn.setVisible(true);
+
 				}
 				
 			}	
 		});
 		add(btnVerTrayectos);
-		
+
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(725, 294, 147, 23);
 		btnCancelar.addActionListener(e -> {
@@ -200,23 +221,14 @@ public class PanelTrayecto extends JPanel {
 		});
 		add(btnCancelar);
 		
+		JLabel lblNewLabel = new JLabel("Si no se selecciona ning\u00FAn camino, se establecer\u00E1 uno por defecto");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblNewLabel.setBounds(557, 269, 340, 14);
+		add(lblNewLabel);
+		
 				
 		
 		
 	}
-//	public Double obtenerPrecio() {
-//		Double costo = 0.0;
-//		List<Ruta> rutas = new ArrayList<Ruta>();
-//		rutas = gestorR.getRutas();
-//		for(List<String> a: cam) {
-//			for(Ruta e: rutas) {
-//				if(a.contains(e.getDestino())) {
-//					costo += e.getCosto();
-//				}
-//			}
-//			
-//		}
-//		return costo;
-//	}
 }
 
