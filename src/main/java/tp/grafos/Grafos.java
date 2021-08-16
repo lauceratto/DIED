@@ -22,8 +22,6 @@ public class Grafos {
 	private List<Ruta> rutas;
 	private List<String> est;
 	private GestorTrayecto gestorT = new GestorTrayecto();
-	private GestorEstacion gestorE = new GestorEstacion();
-	private GestorTransporte gestorTransp = new GestorTransporte();
 	private List<Trayecto> trayectos = gestorT.obtenerTrayectos();
 
 	
@@ -51,28 +49,27 @@ public class Grafos {
 		return res;
 	}
 
-	public List<String> pageRank() {	
-		estaciones = gestorE.getEstacionesDisponibles();
+	public Map<Object, Object> pageRank(List<EstacionMultimodal> list) {	
+		//estaciones = gestorE.getEstacionesDisponibles();
 		HashMap<String,Double> pagerank = new HashMap<String,Double>();
 		List<EstacionMultimodal> lista = new ArrayList<EstacionMultimodal>();
-		List<String> listaOrdenada = new ArrayList<String>();
-		Double nuevoPr=0.0; 
-		for (EstacionMultimodal estacion : estaciones) {
-			 pagerank.put(estacion.getNombre(),(0.5/(double)estaciones.size())); 
+		Double pr=0.0; 
+		for (EstacionMultimodal estacion : list) {
+			 pagerank.put(estacion.getNombre(),(0.5/(double)list.size())); 
 		} 	
 		
-		for(int i=0;i<estaciones.size();i++) { 
-			 for (EstacionMultimodal estacion :estaciones) { 
+		for(int i=0;i<list.size();i++) { 
+			 for (EstacionMultimodal estacion :list) { 
 				lista=obtenerNodosEntrantes(estacion); 
 					 for (EstacionMultimodal pAdy :lista){
 						 if(gradoSalida(pAdy).equals(0)) {
-							 nuevoPr+=(pagerank.get(pAdy.getNombre())/1); 
+							 pr+=(pagerank.get(pAdy.getNombre())/1); 
 						 }else {
-							 nuevoPr+=(pagerank.get(pAdy.getNombre())/gradoSalida(pAdy)); 
+							 pr+=(pagerank.get(pAdy.getNombre())/gradoSalida(pAdy)); 
 						 }
 					 }
-					 pagerank.replace(estacion.getNombre(),nuevoPr.doubleValue()); 
-				nuevoPr=0.0; 
+					 pagerank.replace(estacion.getNombre(),pr.doubleValue()); 
+					 pr=0.0; 
 			}
 
 		}
@@ -81,16 +78,16 @@ public class Grafos {
 				 Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new)); 
 
 		
-		for (Entry<Object, Object> entry : est.entrySet()) {
-		   listaOrdenada.add((String) entry.getKey());
-			//System.out.println("[Key] : " + entry.getKey() + " [Value] : " + entry.getValue());
-		}
-		
-		Collections.reverse(listaOrdenada);
+//		for (Entry<Object, Object> entry : est.entrySet()) {
+//		   listaOrdenada.add((String) entry.getKey());
+//			//System.out.println("[Key] : " + entry.getKey() + " [Value] : " + entry.getValue());
+//		}
+//		
+//		Collections.reverse(listaOrdenada);
 //		for(String l: listaOrdenada) {
 //			System.out.println(l);
 //		}
-		return listaOrdenada;
+		return est;
 	}
 			
 

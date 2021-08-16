@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,9 +77,15 @@ public class PanelAltaTrayecto extends JPanel {
 		comboBoxOrigen = new JComboBox<String>();
 		comboBoxOrigen.setBounds(665, 160, 108, 22);
 
-		List<String> estaciones;
-		estaciones = grafo.pageRank();
-		for(String em : estaciones) {
+		Map<Object, Object> estaciones = grafo.pageRank(gestorE.getEstacionesDisponibles());
+		List<String> listaOrdenada = new ArrayList<String>();
+		for (Entry<Object, Object> entry : estaciones.entrySet()) {
+			   listaOrdenada.add((String) entry.getKey());
+				//System.out.println("[Key] : " + entry.getKey() + " [Value] : " + entry.getValue());
+			}
+			
+			Collections.reverse(listaOrdenada);
+		for(String em : listaOrdenada) {
 			this.comboBoxOrigen.addItem(em);
 		}
 		this.comboBoxOrigen.setSelectedItem(null);
@@ -91,7 +98,7 @@ public class PanelAltaTrayecto extends JPanel {
 		comboBoxDestino = new JComboBox<String>();
 		comboBoxDestino.setBounds(980, 160, 108, 22);
 
-		for(String em : estaciones) {
+		for(String em : listaOrdenada) {
 			this.comboBoxDestino.addItem(em);
 		}
 		this.comboBoxDestino.setSelectedItem(null);

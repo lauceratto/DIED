@@ -18,6 +18,7 @@ import tp.grafos.Grafos;
 import java.awt.Font;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -50,10 +51,16 @@ public class PanelTrayecto extends JPanel {
 		
 		comboBoxOrigen = new JComboBox<String>();
 		comboBoxOrigen.setBounds(507, 177, 131, 22);
-		List<String> estaciones;
-		estaciones = grafo.pageRank();
-		for(String em : estaciones) {
-			this.comboBoxOrigen.addItem(em);
+		Map<Object, Object> estaciones = grafo.pageRank(gestorE.getEstacionesDisponibles());
+		List<String> listaOrdenada = new ArrayList<String>();
+		for (Entry<Object, Object> entry : estaciones.entrySet()) {
+			   listaOrdenada.add((String) entry.getKey());
+				//System.out.println("[Key] : " + entry.getKey() + " [Value] : " + entry.getValue());
+			}
+			
+			Collections.reverse(listaOrdenada);
+		for(String entry : listaOrdenada) {
+			this.comboBoxOrigen.addItem( entry);
 		}
 		this.comboBoxOrigen.setSelectedItem(null);
 		add(comboBoxOrigen);
@@ -71,7 +78,7 @@ public class PanelTrayecto extends JPanel {
 		
 		comboBoxDestino = new JComboBox<String>();
 		comboBoxDestino.setBounds(810, 177, 131, 22);
-		for(String em : estaciones) {
+		for(String em : listaOrdenada) {
 			this.comboBoxDestino.addItem(em);
 		}
 		this.comboBoxDestino.setSelectedItem(null);
@@ -132,7 +139,7 @@ public class PanelTrayecto extends JPanel {
 		btnVerTrayectos.setBounds(537, 294, 147, 23);
 		btnVerTrayectos.addActionListener(l -> {
 			Grafos grafo = new Grafos();
-			grafo.pageRank();
+			grafo.pageRank(gestorE.getEstacionesDisponibles());
 			if(comboBoxOrigen.getSelectedItem()==null || comboBoxDestino.getSelectedItem()==null) {
 				JOptionPane.showMessageDialog(null, "No puede haber campos nulos");
 			}else {

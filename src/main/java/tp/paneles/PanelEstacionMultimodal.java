@@ -223,7 +223,14 @@ public class PanelEstacionMultimodal extends JPanel {
 		btnInformacion.setIcon(new ImageIcon(PanelEstacionMultimodal.class.getResource("/tp/App/info.png")));
 		btnInformacion.setBounds(1084, 37, 31, 30);
 		btnInformacion.addActionListener(l -> {
-			JOptionPane.showMessageDialog(null, "Esta opcion no está disponible en este momento");
+			this.setVisible(false);
+			app.setContentPane(new PanelInformacion(app));
+			app.pack();
+			app.revalidate();
+			app.repaint();
+			app.setSize(1020, 720);
+			app.setLocationRelativeTo(null);
+			app.setExtendedState(app.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		});
 		add(btnInformacion);
 	}

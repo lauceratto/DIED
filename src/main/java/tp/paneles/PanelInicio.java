@@ -19,8 +19,10 @@ public class PanelInicio extends JPanel {
 	public PanelInicio(App app) {
 		setLayout(null);
 		
-		JButton btnNewButton = new JButton("Transporte");
-		btnNewButton.setBounds(786, 272, 135, 23);
+		JButton btnNewButton = new JButton("TRANSPORTE");
+		btnNewButton.setIcon(new ImageIcon(PanelInicio.class.getResource("/tp/App/transporte.png")));
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnNewButton.setBounds(823, 278, 185, 41);
 		btnNewButton.addActionListener(e -> {
 			this.setVisible(false);
 			app.setContentPane(new PanelTransporte(app));
@@ -33,8 +35,10 @@ public class PanelInicio extends JPanel {
 		});
 		add(btnNewButton);
 		
-		JButton btnEstacionMultimodal = new JButton("Estacion Multimodal");
-		btnEstacionMultimodal.setBounds(786, 142, 172, 23);
+		JButton btnEstacionMultimodal = new JButton("ESTACION MULTIMODAL");
+		btnEstacionMultimodal.setIcon(new ImageIcon(PanelInicio.class.getResource("/tp/App/estacion.png")));
+		btnEstacionMultimodal.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnEstacionMultimodal.setBounds(253, 279, 260, 40);
 		btnEstacionMultimodal.addActionListener(e -> {
 			this.setVisible(false);
 			app.setContentPane(new PanelEstacionMultimodal(app));
@@ -47,8 +51,10 @@ public class PanelInicio extends JPanel {
 		});
 		add(btnEstacionMultimodal);
 		
-		JButton btnTrayecto = new JButton("Boleto");
-		btnTrayecto.setBounds(786, 402, 145, 23);
+		JButton btnTrayecto = new JButton(" BOLETO");
+		btnTrayecto.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnTrayecto.setIcon(new ImageIcon(PanelInicio.class.getResource("/tp/App/boleto.png")));
+		btnTrayecto.setBounds(574, 278, 185, 41);
 		btnTrayecto.addActionListener(e -> {
 			this.setVisible(false);
 			app.setContentPane(new PanelTrayecto(app));
