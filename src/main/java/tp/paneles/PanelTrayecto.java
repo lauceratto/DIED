@@ -19,6 +19,8 @@ import java.awt.Font;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -35,7 +37,9 @@ public class PanelTrayecto extends JPanel {
 	private JComboBox<String> comboBoxOrigen;
 	private JComboBox<String> comboBoxDestino;
 	private Grafos grafo = new Grafos();
+	private GestorEstacion gestorE = new GestorEstacion();
 	private List<List<String>> cam;
+
 	private Integer num=0;
 	private Double valor=0.0;
 	private Double costo=0.0;
@@ -46,10 +50,10 @@ public class PanelTrayecto extends JPanel {
 		
 		comboBoxOrigen = new JComboBox<String>();
 		comboBoxOrigen.setBounds(507, 177, 131, 22);
-		List<String> estaciones = new ArrayList<String>();
+		List<String> estaciones;
 		estaciones = grafo.pageRank();
-		for(String est : estaciones) {
-			this.comboBoxOrigen.addItem(est);
+		for(String em : estaciones) {
+			this.comboBoxOrigen.addItem(em);
 		}
 		this.comboBoxOrigen.setSelectedItem(null);
 		add(comboBoxOrigen);
@@ -67,8 +71,8 @@ public class PanelTrayecto extends JPanel {
 		
 		comboBoxDestino = new JComboBox<String>();
 		comboBoxDestino.setBounds(810, 177, 131, 22);
-		for(String est : estaciones) {
-			this.comboBoxDestino.addItem(est);
+		for(String em : estaciones) {
+			this.comboBoxDestino.addItem(em);
 		}
 		this.comboBoxDestino.setSelectedItem(null);
 		add(comboBoxDestino);
@@ -111,7 +115,6 @@ public class PanelTrayecto extends JPanel {
 				}else {
 					camino = "Mas barato";
 				}
-				
 				this.setVisible(false);
 				app.setContentPane(new PanelCrearBoleto(camino,cam,app,comboBoxOrigen.getSelectedItem().toString(),comboBoxDestino.getSelectedItem().toString(),costo));
 				app.pack();

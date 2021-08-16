@@ -23,6 +23,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class PanelEstacionMultimodal extends JPanel {
@@ -217,5 +218,13 @@ public class PanelEstacionMultimodal extends JPanel {
 			app.setExtendedState(app.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		});
 		add(btnCancelar);
+		
+		JButton btnInformacion = new JButton("");
+		btnInformacion.setIcon(new ImageIcon(PanelEstacionMultimodal.class.getResource("/tp/App/info.png")));
+		btnInformacion.setBounds(1084, 37, 31, 30);
+		btnInformacion.addActionListener(l -> {
+			JOptionPane.showMessageDialog(null, "Esta opcion no está disponible en este momento");
+		});
+		add(btnInformacion);
 	}
 }

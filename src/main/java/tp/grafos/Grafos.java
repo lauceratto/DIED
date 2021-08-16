@@ -1,22 +1,17 @@
 package tp.grafos;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
+
 import tp.dominio.EstacionMultimodal;
 import tp.dominio.Ruta;
-import tp.dominio.Transporte;
 import tp.dominio.Trayecto;
 import tp.gestores.GestorEstacion;
 import tp.gestores.GestorTransporte;
@@ -29,47 +24,79 @@ public class Grafos {
 	private GestorTrayecto gestorT = new GestorTrayecto();
 	private GestorEstacion gestorE = new GestorEstacion();
 	private GestorTransporte gestorTransp = new GestorTransporte();
+	private List<Trayecto> trayectos = gestorT.obtenerTrayectos();
+
 	
 	public Grafos() {
 		this.estaciones = new ArrayList<EstacionMultimodal>();
 		this.rutas = new ArrayList<Ruta>();
 	}
 	
+	 private Integer gradoSalida(EstacionMultimodal e){ 
+		 Integer res =0; 
+		 for(Trayecto t : this.trayectos){ 
+			 if(t.getEstacionOrigen().equals(e.getNombre())) ++res; 
+		 } 
+		return res;
+	 }
+	 
+
 	public Integer gradoEntrada(EstacionMultimodal estacion){
 		Integer res = 0;
-		List<Trayecto> trayectos = gestorT.obtenerTrayectos();
-		for(Trayecto arista : trayectos){
+		for(Trayecto arista : this.trayectos){
 			if(arista.getEstacionDestino().equals(estacion.getNombre())) {
 				++res;
 			}
 		}
 		return res;
 	}
-	
+
 	public List<String> pageRank() {	
 		estaciones = gestorE.getEstacionesDisponibles();
-		HashMap<EstacionMultimodal,Integer> map = new HashMap<EstacionMultimodal,Integer>();
-		List<String> lista = new ArrayList<>();
-		for(EstacionMultimodal e: estaciones) {
-			map.put(e, gradoEntrada(e));
+		HashMap<String,Double> pagerank = new HashMap<String,Double>();
+		List<EstacionMultimodal> lista = new ArrayList<EstacionMultimodal>();
+		List<String> listaOrdenada = new ArrayList<String>();
+		Double nuevoPr=0.0; 
+		for (EstacionMultimodal estacion : estaciones) {
+			 pagerank.put(estacion.getNombre(),(0.5/(double)estaciones.size())); 
+		} 	
+		
+		for(int i=0;i<estaciones.size();i++) { 
+			 for (EstacionMultimodal estacion :estaciones) { 
+				lista=obtenerNodosEntrantes(estacion); 
+					 for (EstacionMultimodal pAdy :lista){
+						 if(gradoSalida(pAdy).equals(0)) {
+							 nuevoPr+=(pagerank.get(pAdy.getNombre())/1); 
+						 }else {
+							 nuevoPr+=(pagerank.get(pAdy.getNombre())/gradoSalida(pAdy)); 
+						 }
+					 }
+					 pagerank.replace(estacion.getNombre(),nuevoPr.doubleValue()); 
+				nuevoPr=0.0; 
+			}
+
 		}
-		map.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach(entry -> {
-			lista.add(entry.getKey().getNombre());
-			//System.out.println(entry.getKey().getNombre()+" "+entry.getValue());
-		});
-		Collections.reverse(lista);
-//		for(String l: lista) {
+
+		Map<Object, Object> est = pagerank.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(
+				 Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new)); 
+
+		
+		for (Entry<Object, Object> entry : est.entrySet()) {
+		   listaOrdenada.add((String) entry.getKey());
+			//System.out.println("[Key] : " + entry.getKey() + " [Value] : " + entry.getValue());
+		}
+		
+		Collections.reverse(listaOrdenada);
+//		for(String l: listaOrdenada) {
 //			System.out.println(l);
 //		}
-		return lista;
+		return listaOrdenada;
 	}
 			
 
 	private List<String> obtenerNodoVecino(String estacion){ 
 		List<String> salida = new ArrayList<String>();
-		List<Trayecto> trayectos = new ArrayList<Trayecto>();
-		trayectos = gestorT.obtenerTrayectos();
-			for(Trayecto enlace : trayectos){
+			for(Trayecto enlace : this.trayectos){
 				if( enlace.getEstacionOrigen().equals(estacion)){
 					salida.add(enlace.getEstacionDestino());
 						
@@ -96,7 +123,7 @@ public class Grafos {
 	    		if(ad.equals(v2)) {
 	    			copiaVisitados.add(ad);
 					todos.add(new ArrayList<String>(copiaVisitados));
-//					System.out.println("Camino!: " +copiaVisitados.toString());
+					//System.out.println("Camino!: " +copiaVisitados.toString());
 	    		}else {
 	    			if(!copiaVisitados.contains(ad)) {
 	    				copiaVisitados.add(ad);
@@ -105,6 +132,19 @@ public class Grafos {
 	    		}
 	    	}
 	    }
+	 private List<EstacionMultimodal> obtenerNodosEntrantes(EstacionMultimodal e) {
+		 List<EstacionMultimodal> estaciones = new ArrayList<EstacionMultimodal>();
+		 
+		 for (Trayecto t : this.trayectos) { 
+			 if(t.getEstacionDestino().equals(e.getNombre())) {
+				 if(!estaciones.contains(t.getEstacionOrigen())) estaciones.add(e); 
+			 }
+				
+		} 
+		 return estaciones;
+	} 
+	
+
 	 
 	
 }

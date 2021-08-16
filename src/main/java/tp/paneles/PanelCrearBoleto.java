@@ -4,45 +4,32 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
 
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import tp.App.App;
 import tp.Exceptions.BoletoException;
 import tp.dominio.Boleto;
-import tp.dominio.Ruta;
 import tp.gestores.GestorBoleto;
-import tp.gestores.GestorRuta;
-import tp.grafos.Grafos;
-
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
 
 public class PanelCrearBoleto extends JPanel {
 	
-	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private GestorBoleto gestorB = new GestorBoleto();
-	private GestorRuta gestorR = new GestorRuta();
 	private JTextField textOrigen;
 	private JTextField textDestino;
-	private ArrayList<Ruta> rutas = null;
-	private Grafos grafos = new Grafos();
-	
+
+
 	public PanelCrearBoleto(String camino,List<List<String>> cam, App app,String origen, String destino, Double costo) {
 		setLayout(null);
 

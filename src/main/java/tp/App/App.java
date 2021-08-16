@@ -1,8 +1,6 @@
 package tp.App;
 
 import java.awt.Font;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.swing.JButton;
@@ -12,15 +10,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-
 
 import tp.dao.conexionDAO;
-import tp.dominio.EstacionMultimodal;
-import tp.grafos.Grafos;
-import tp.paneles.PanelEstacionMultimodal;
 import tp.paneles.PanelInicio;
-import tp.paneles.PanelTransporte;
 
 public class App extends JFrame{
 	
@@ -81,7 +73,7 @@ public void armarApp() {
 }
 
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
 	 EntityManagerFactory emf = conexionDAO.getInstance();
 	 EntityManager man = emf.createEntityManager();
 	 Login log = new Login();

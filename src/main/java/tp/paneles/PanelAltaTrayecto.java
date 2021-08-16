@@ -17,7 +17,10 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -73,7 +76,7 @@ public class PanelAltaTrayecto extends JPanel {
 		comboBoxOrigen = new JComboBox<String>();
 		comboBoxOrigen.setBounds(665, 160, 108, 22);
 
-		List<String> estaciones = new ArrayList<String>();
+		List<String> estaciones;
 		estaciones = grafo.pageRank();
 		for(String em : estaciones) {
 			this.comboBoxOrigen.addItem(em);
