@@ -15,7 +15,7 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-public class PanelInformacion extends JPanel {
+public class PanelInformacion extends PanelFondo {
 	private JTable table;
 	private GestorEstacion gestorE = new GestorEstacion();
 	private Grafos grafo = new Grafos();

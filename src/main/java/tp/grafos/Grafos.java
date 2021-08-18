@@ -3,10 +3,13 @@ package tp.grafos;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Queue;
 import java.util.stream.Collectors;
 
 
@@ -14,6 +17,7 @@ import tp.dominio.EstacionMultimodal;
 import tp.dominio.Ruta;
 import tp.dominio.Trayecto;
 import tp.gestores.GestorEstacion;
+import tp.gestores.GestorRuta;
 import tp.gestores.GestorTransporte;
 import tp.gestores.GestorTrayecto;
 
@@ -24,7 +28,6 @@ public class Grafos {
 	private GestorTrayecto gestorT = new GestorTrayecto();
 	private List<Trayecto> trayectos = gestorT.obtenerTrayectos();
 
-	
 	public Grafos() {
 		this.estaciones = new ArrayList<EstacionMultimodal>();
 		this.rutas = new ArrayList<Ruta>();
@@ -77,16 +80,6 @@ public class Grafos {
 		Map<Object, Object> est = pagerank.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(
 				 Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new)); 
 
-		
-//		for (Entry<Object, Object> entry : est.entrySet()) {
-//		   listaOrdenada.add((String) entry.getKey());
-//			//System.out.println("[Key] : " + entry.getKey() + " [Value] : " + entry.getValue());
-//		}
-//		
-//		Collections.reverse(listaOrdenada);
-//		for(String l: listaOrdenada) {
-//			System.out.println(l);
-//		}
 		return est;
 	}
 			
@@ -142,6 +135,4 @@ public class Grafos {
 	} 
 	
 
-	 
-	
 }

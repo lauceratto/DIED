@@ -1,6 +1,9 @@
 package tp.App;
 
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Panel;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.swing.JButton;
@@ -12,29 +15,38 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import tp.dao.conexionDAO;
+import tp.paneles.PanelFondo;
 import tp.paneles.PanelInicio;
 
 public class App extends JFrame{
 	
 	JMenuBar menuBar;
-	JMenu menuArchivo;
+	JMenu menuArchivo, menuEdicion, ver, herramientas, ayuda;
 	JMenuItem menuItemSalir;
 	JPanel panel = new JPanel();
 	JButton botonInicio;
 	JButton botonEstacion;
 	
-public App() {
-	
-}
+	public App() {
+
+	}
 
 public void armarApp() {
 	
 	this.menuBar = new JMenuBar();
-	this.menuArchivo = new JMenu("Inicio");
+	this.menuArchivo = new JMenu("Archivo");
+	this.menuEdicion = new JMenu("Edición");
+	this.ver = new JMenu("Ver");
+	this.herramientas = new JMenu("Herramientas");
+	this.ayuda= new JMenu("Ayuda");
 	this.menuItemSalir = new JMenuItem("Salir");
 	this.menuItemSalir.addActionListener( e -> System.exit(0));
 	this.menuArchivo.add(menuItemSalir);
-	menuBar.add(this.menuArchivo);
+	menuBar.add(menuArchivo);
+	menuBar.add(menuEdicion);
+	menuBar.add(ver);
+	menuBar.add(herramientas);
+	menuBar.add(ayuda);
 	this.setJMenuBar(menuBar);
 	JLabel lblNewLabel = new JLabel("INTEGRANTES");
 	lblNewLabel.setFont(new Font("Sylfaen", Font.PLAIN, 16));
@@ -77,8 +89,11 @@ public void armarApp() {
 	 EntityManagerFactory emf = conexionDAO.getInstance();
 	 EntityManager man = emf.createEntityManager();
 	 Login log = new Login();
+	// log.add(panel);
 	 log.armarLogin();
 	 log.setVisible(true);
 	 man.close();
 	}
+	
+
 }

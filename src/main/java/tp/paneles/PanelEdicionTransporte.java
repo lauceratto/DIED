@@ -20,7 +20,7 @@ import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
-public class PanelEdicionTransporte extends JPanel {
+public class PanelEdicionTransporte extends PanelFondo {
 	private GestorTransporte gestorT = new GestorTransporte();
 	private JTextField txtNombre;
 	private final ButtonGroup buttonGroup = new ButtonGroup();

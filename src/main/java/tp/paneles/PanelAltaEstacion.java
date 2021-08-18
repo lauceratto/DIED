@@ -19,8 +19,9 @@ import tp.gestores.GestorEstacion;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.ImageIcon;
 
-public class PanelAltaEstacion extends JPanel {
+public class PanelAltaEstacion extends PanelFondo {
 
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	public JTextField textID;
@@ -32,60 +33,62 @@ public class PanelAltaEstacion extends JPanel {
 	public PanelAltaEstacion(App app) {
 		setLayout(null);
 		JLabel lblNewLabel = new JLabel("Alta de Estacion Multimodal");
-		lblNewLabel.setBounds(616, 11, 300, 30);
+		lblNewLabel.setBounds(535, 84, 347, 30);
 		lblNewLabel.setFont(new Font("Calibri", Font.BOLD, 24));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblNewLabel);
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(617, 90, 71, 20);
+		lblNombre.setBounds(616, 167, 71, 20);
 		lblNombre.setBackground(Color.BLACK);
 		add(lblNombre);
 		
 		textID = new JTextField();
-		textID.setBounds(525, 90, 44, 19);
+		textID.setBounds(525, 167, 44, 19);
 		textID.setColumns(10);
 		add(textID);
 		
 		JLabel lblId = new JLabel("Id");
 		lblId.setBackground(Color.BLACK);
-		lblId.setBounds(471, 90, 44, 20);
+		lblId.setBounds(471, 167, 44, 20);
 		add(lblId);
 		textNombre = new JTextField();
-		textNombre.setBounds(698, 90, 185, 21);
+		textNombre.setBounds(697, 167, 185, 21);
 		textNombre.setColumns(10);
 		add(textNombre);
 		
 		JLabel lblHorarioApertura = new JLabel("Horario apertura");
 		lblHorarioApertura.setBackground(Color.BLACK);
-		lblHorarioApertura.setBounds(471, 143, 102, 20);
+		lblHorarioApertura.setBounds(471, 227, 102, 20);
 		add(lblHorarioApertura);
 		
 		textHorarioApertura = new JTextField();
 		textHorarioApertura.setColumns(10);
-		textHorarioApertura.setBounds(583, 143, 53, 19);
+		textHorarioApertura.setBounds(583, 227, 53, 19);
 		add(textHorarioApertura);
 		
 		JLabel lblNewLabel_1 = new JLabel("Hs.");
-		lblNewLabel_1.setBounds(646, 146, 31, 14);
+		lblNewLabel_1.setBounds(646, 230, 31, 14);
 		add(lblNewLabel_1);
 		
 		JLabel lblHorarioCierre = new JLabel("Horario cierre");
 		lblHorarioCierre.setBackground(Color.BLACK);
-		lblHorarioCierre.setBounds(698, 143, 102, 20);
+		lblHorarioCierre.setBounds(698, 227, 102, 20);
 		add(lblHorarioCierre);
 		
 		textHorarioCierre = new JTextField();
 		textHorarioCierre.setColumns(10);
-		textHorarioCierre.setBounds(807, 143, 53, 19);
+		textHorarioCierre.setBounds(810, 227, 53, 19);
 		add(textHorarioCierre);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Hs.");
-		lblNewLabel_1_1.setBounds(870, 146, 46, 14);
+		lblNewLabel_1_1.setBounds(873, 230, 46, 14);
 		add(lblNewLabel_1_1);
 
-		JButton btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(583, 301, 89, 23);
+		JButton btnGuardar = new JButton("GUARDAR");
+		btnGuardar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnGuardar.setIcon(new ImageIcon(PanelAltaEstacion.class.getResource("/tp/App/guardar.png")));
+		btnGuardar.setBounds(562, 301, 147, 35);
 		btnGuardar.addActionListener(e -> {
 			String id = this.textID.getText();
 			String nombre = this.textNombre.getText();
@@ -101,8 +104,9 @@ public class PanelAltaEstacion extends JPanel {
 		});
 		add(btnGuardar);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(732, 301, 89, 23);
+		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCancelar.setBounds(729, 302, 134, 32);
 		btnCancelar.addActionListener(e -> {
 			this.setVisible(false);
 			app.setContentPane(new PanelEstacionMultimodal(app));

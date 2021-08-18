@@ -35,7 +35,7 @@ import tp.gestores.GestorTransporte;
 
 import javax.swing.JScrollPane;
 
-public class PanelTransporte extends JPanel {
+public class PanelTransporte extends PanelFondo {
 
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextField textNombre;

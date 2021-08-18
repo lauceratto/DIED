@@ -31,7 +31,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
-public class PanelTrayecto extends JPanel {
+public class PanelTrayecto extends PanelFondo {
 
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private GestorRuta gestorR = new GestorRuta();
@@ -155,11 +155,7 @@ public class PanelTrayecto extends JPanel {
 					btnComprarBoleto.setVisible(true);
 					JFrame mvn= new JFrame("Ventana del grafo");
 					mvn.setBounds(0,0, 400, 400);
-					if(buttonGroup.isSelected(null)) {
-						
-						mvn.setContentPane(new CrearGrafo(cam.get(0)));
-						
-					}else if(rdbtnDistancia.isSelected()) {
+					if(buttonGroup.isSelected(null) || rdbtnDistancia.isSelected()) {
 						Number[] list = gestorR.obtenerMenorDistancia(origen, destino);
 						num = (Integer) list[0];
 						valor= (Double) list[1];

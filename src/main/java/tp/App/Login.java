@@ -13,6 +13,7 @@ import tp.dao.conexionDAO;
 import tp.dominio.Usuario;
 import tp.paneles.PanelEdicionTransporte;
 import tp.paneles.PanelEstacionMultimodal;
+import tp.paneles.PanelFondo;
 import tp.paneles.PanelTrayecto;
 
 import javax.swing.JLabel;
@@ -21,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.swing.CellEditor;
 import javax.swing.JButton;
 
 public class Login extends JFrame {
@@ -33,12 +35,11 @@ public class Login extends JFrame {
 		setMinimumSize(new Dimension(300, 350));
 		setLocation(600, 200);
 		
+		
 	}
 	public void armarLogin() {
 		setTitle("Inicio de sesi\u00F3n");
-		Usuario u = new Usuario();
 		setLayout(null);
-		
 		JLabel lblNewLabel = new JLabel("Usuario");
 		lblNewLabel.setBounds(30, 48, 46, 14);
 		add(lblNewLabel);
@@ -82,5 +83,7 @@ public class Login extends JFrame {
 			System.exit(0);
 		});
 		add(btnCancelar);
+		
 	}
+	
 }

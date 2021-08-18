@@ -18,7 +18,7 @@ import tp.gestores.GestorBoleto;
 import javax.swing.JFrame;
 
 
-public class PanelCrearBoleto extends JPanel {
+public class PanelCrearBoleto extends PanelFondo {
 	
 	private JTextField textField;
 	private JTextField textField_1;

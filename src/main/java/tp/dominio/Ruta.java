@@ -67,7 +67,6 @@ public class Ruta implements Serializable{
 
 	public Ruta(EstacionMultimodal ini,EstacionMultimodal fin,Number valor){
 		this(ini,fin);
-		
 	}
 	
 		

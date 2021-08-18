@@ -19,7 +19,7 @@ import java.time.LocalDate;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-public class PanelEdicionEstacion extends JPanel {
+public class PanelEdicionEstacion extends PanelFondo {
 	
 	private GestorEstacion gestorE = new GestorEstacion();
 	private JTextField textNombre;

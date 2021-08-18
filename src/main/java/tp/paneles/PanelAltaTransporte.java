@@ -13,12 +13,13 @@ import tp.dominio.Transporte;
 import tp.gestores.GestorTransporte;
 
 import javax.swing.JComboBox;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PanelAltaTransporte extends JPanel {
+public class PanelAltaTransporte extends PanelFondo {
 	private JTextField textField;
 	private GestorTransporte gestorT = new GestorTransporte();
 	private JTextField textField_1;
@@ -50,20 +51,12 @@ public class PanelAltaTransporte extends JPanel {
 		JLabel lblNewLabel_1 = new JLabel("Color (*)");
 		lblNewLabel_1.setBounds(530, 200, 82, 14);
 		add(lblNewLabel_1);
-		
-//		JLabel lblNewLabel_4 = new JLabel("Id");
-//		lblNewLabel_4.setBounds(530, 92, 59, 14);
-//		add(lblNewLabel_4);
-//		
-//		textField_1 = new JTextField();
-//		textField_1.setColumns(10);
-//		textField_1.setBounds(690, 89, 178, 19);
-//		add(textField_1);
-		
-		JButton btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(600, 342, 89, 23);
+
+		JButton btnGuardar = new JButton("GUARDAR");
+		btnGuardar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnGuardar.setIcon(new ImageIcon(PanelAltaEstacion.class.getResource("/tp/App/guardar.png")));
+		btnGuardar.setBounds(585, 329, 147, 41);
 		btnGuardar.addActionListener(e -> {
-//			String id = lblNewLabel_4.getText();
 			String nombre = this.textField.getText();
 			String color = comboColor.getSelectedItem().toString();
 			try {
@@ -77,8 +70,9 @@ public class PanelAltaTransporte extends JPanel {
 		});
 		add(btnGuardar);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(732, 342, 89, 23);
+		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCancelar.setBounds(761, 329, 117, 41);
 		btnCancelar.addActionListener(e -> {
 			int n = JOptionPane.showConfirmDialog( null, "Desea cancelar la operacion?", "Mensaje", JOptionPane.YES_NO_OPTION);
 			if (n == JOptionPane.YES_OPTION) {

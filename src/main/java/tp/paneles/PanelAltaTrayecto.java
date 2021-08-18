@@ -26,6 +26,7 @@ import java.util.Map.Entry;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -152,8 +153,10 @@ public class PanelAltaTrayecto extends JPanel {
 		buttonGroup.add(rdbtnNoActiva);
 		add(rdbtnNoActiva);
 		
-		JButton btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(662, 469, 89, 23);
+		JButton btnGuardar = new JButton("GUARDAR");
+		btnGuardar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnGuardar.setIcon(new ImageIcon(PanelAltaEstacion.class.getResource("/tp/App/guardar.png")));
+		btnGuardar.setBounds(616, 457, 135, 35);
 		btnGuardar.addActionListener(e -> {
 			distancia = Double.parseDouble(this.textDistancia.getText().trim());
 			duracion = Double.parseDouble(this.textDuracion.getText().trim());
@@ -189,8 +192,9 @@ public class PanelAltaTrayecto extends JPanel {
 		});
 		add(btnGuardar);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(823, 469, 89, 23);
+		JButton btnCancelar = new JButton("CANCELAR");
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCancelar.setBounds(813, 457, 109, 35);
 		btnCancelar.addActionListener(e -> {
 			this.setVisible(false);
 			app.setContentPane(new PanelTransporte(app));

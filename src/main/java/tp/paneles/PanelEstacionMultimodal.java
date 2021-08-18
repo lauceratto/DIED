@@ -26,7 +26,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-public class PanelEstacionMultimodal extends JPanel {
+public class PanelEstacionMultimodal extends PanelFondo {
 
 	private GestorEstacion gestorE = new GestorEstacion();
 	private JTextField textNombre;

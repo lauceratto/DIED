@@ -1,23 +1,21 @@
 package tp.paneles;
 
-
-import java.awt.Dimension;
-import java.awt.Graphics;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import tp.App.App;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import java.awt.Font;
 
-public class PanelInicio extends JPanel {
+public class PanelInicio extends PanelFondo{
 	
 	public PanelInicio(App app) {
+		
 		setLayout(null);
+		
 		
 		JButton btnNewButton = new JButton("TRANSPORTE");
 		btnNewButton.setIcon(new ImageIcon(PanelInicio.class.getResource("/tp/App/transporte.png")));
@@ -69,12 +67,5 @@ public class PanelInicio extends JPanel {
 		
 		
 	}
-//	public void paint(Graphics grafico) {
-//		Dimension height = getSize();
-//		ImageIcon Img = new ImageIcon(getClass().getResource("/tp/App/Mapa.png")); 
-//		grafico.drawImage(Img.getImage(), 230 , 160, 400, 300, null);
-//		 
-////		setOpaque(false);
-////		super.paintComponent(grafico);
-//		}
+
 }
