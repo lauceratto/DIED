@@ -53,14 +53,12 @@ public class Grafos {
 	}
 
 	public Map<Object, Object> pageRank(List<EstacionMultimodal> list) {	
-		//estaciones = gestorE.getEstacionesDisponibles();
 		HashMap<String,Double> pagerank = new HashMap<String,Double>();
 		List<EstacionMultimodal> lista = new ArrayList<EstacionMultimodal>();
 		Double pr=0.0; 
 		for (EstacionMultimodal estacion : list) {
 			 pagerank.put(estacion.getNombre(),(0.5/(double)list.size())); 
 		} 	
-		
 		for(int i=0;i<list.size();i++) { 
 			 for (EstacionMultimodal estacion :list) { 
 				lista=obtenerNodosEntrantes(estacion); 
@@ -76,7 +74,6 @@ public class Grafos {
 			}
 
 		}
-
 		Map<Object, Object> est = pagerank.entrySet().stream().sorted(Map.Entry.comparingByValue()).collect(
 				 Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new)); 
 
